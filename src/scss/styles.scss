@@ -1,0 +1,66 @@
+// // /**
+// //  * @file styles.scss
+// //  *
+// //  * Main stylesheet.
+// //  * */
+@import "https://fonts.googleapis.com/css?family=Montserrat:400,500,700";
+
+@import "fonts/fa-brands",
+        "fonts/fa-solid",
+        "fonts/fa-regular",
+        "fonts/fontawesome";
+
+@import 'config/colours',
+        'config/typography',
+        'config/animations';
+
+@import "bulma/bulma";
+
+@import 'blocks/header/header',
+        'blocks/owl-carousel/owl.carousel',
+        'blocks/carousel/carousel',
+        'blocks/jarallax/jarallax',
+        'blocks/team/team',
+        'blocks/testimonial/testimonial',
+        'blocks/contact/contact',
+        'blocks/service/service',
+        'blocks/footer/footer';
+
+html {
+    &.is {
+        &-locked {
+            overflow: hidden;
+            body {
+                overflow: hidden;
+
+            }
+        }
+    }
+
+    body {
+        .title {
+            font-weight: 500;
+        }
+
+        .modal {
+            z-index: 1000;
+        }
+    }
+}
+
+.is {
+    &-relative {
+        position: relative;
+    }
+
+    &-absolute-centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.title {
+    color: $max-yellow-red;
+}

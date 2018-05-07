@@ -1,0 +1,121 @@
+.testimonial {
+
+    &.columns {
+        margin-bottom: 48px;
+    }
+
+    &s {
+        h2.title {
+            color: $eeri-black;
+            &.is-contentless {
+                margin-bottom: 4rem;
+            }
+        }
+
+        .content {
+            &:first-child {
+                margin-bottom: 64px;
+            }
+        }
+
+        &__hero {
+            &__highlight {
+                color: $white;
+                &__icon {
+                    height: auto;
+                    width: 100%;
+                    color: $gold;
+                    i {
+                        font-size: 48px;
+                        line-height: 1;
+                    }
+                }
+
+                &__figure {
+                    margin: 12px auto 6px;
+                    font-size: 56px;
+                    font-weight: bold;
+                    sup {
+                        font-size: 24px;
+                    }
+                }
+
+                &__title {
+                    font-size: 18px;
+                }
+
+                &s {
+                    &__container {
+                        max-width: 1152px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    &__avatar {
+        padding: 5px;
+        border: 1px solid #b5b5b5;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    &__spoke {
+        border-radius: 10px;
+        padding: 20px;
+        background-color: whitesmoke;
+
+        &__text,
+        &__rating,
+        &__person {
+            padding-left: 28px;
+        }
+
+        &__text {
+            color: rgba($eeri-black, 0.6);
+            font-style: italic;
+            position: relative;
+
+            .icon {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+
+        &__rating {
+            margin-bottom: 1em;
+            .icon {
+                font-size: 24px;
+                color: $gold;
+                &:not(:last-child) {
+                    margin-right: 0.5em;
+                }
+            }
+        }
+
+        &__person {
+            color: $eeri-black;
+            font-weight: bold;
+        }
+    }
+
+    &.is {
+        &-even {
+            justify-content: flex-end;
+            .text-col {
+                order: 1;
+            }
+
+            .avatar-col {
+                order: 2;
+            }
+        }
+    }
+}

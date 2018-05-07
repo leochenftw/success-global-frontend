@@ -1,0 +1,25 @@
+&-item,
+&-link {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+&-item {
+    a:not(.button) {
+        color: $max-yellow-red;
+        &:hover {
+            color: $white;
+        }
+    }
+
+    img {
+        max-height: none;
+    }
+}
+
+&-burger {
+    height: auto;
+    span {
+        background-color: $max-yellow-red;
+    }
+}

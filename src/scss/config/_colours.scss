@@ -1,0 +1,27 @@
+$eeri-black     :   #201D1F;
+$white          :   #ffffff;
+$max-yellow-red :   #E6C04C;
+$donkey-brown   :   #65562D;
+$cafe-noir      :   #423826;
+
+$grey-darker    :   $eeri-black;
+$gold           :   $max-yellow-red;
+
+.bg-eerie-black {
+    background-color: $eeri-black;
+}
+
+.button {
+    &.is {
+        &-gold {
+            border: none;
+            color: $eeri-black;
+            background-color: $max-yellow-red;
+
+            &:hover {
+                background-color: $white;
+                color: $max-yellow-red;
+            }
+        }
+    }
+}

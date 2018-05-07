@@ -1,0 +1,57 @@
+.team-member {
+    padding-top: 100%;
+    background-position: center;
+    background-size: cover;
+    &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba($eeri-black, 0), rgba($eeri-black, 0.2) 60%, rgba($eeri-black, 0.8) 100%);
+    }
+
+    &__name-role {
+        transition: all ease-in-out 0.3s;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 0 24px 2rem;
+        .title,
+        .subtitle {
+            color: $white;
+        }
+
+        .title {
+            .icon {
+                transform: translateY(2px);
+                color: $max-yellow-red;
+            }
+        }
+
+        .subtitle {
+            font-size: 14px;
+        }
+    }
+
+    &:hover {
+        .team-member__name-role {
+            padding-left: 32px;
+        }
+    }
+
+    &__group {
+        margin-bottom: 3rem;
+    }
+
+    &s {
+        .container {
+            .content {
+                margin-bottom: 4rem;
+            }
+        }
+    }
+}

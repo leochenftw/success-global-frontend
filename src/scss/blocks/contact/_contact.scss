@@ -1,0 +1,43 @@
+.section-contact {
+    &__branch {
+        margin-top: 0;
+        &:not(:last-child) {
+            margin-bottom: 3rem;
+        }
+
+        .title {
+            color: $max-yellow-red;
+        }
+
+        .gmap-holder {
+            height: 100%;
+            min-height: 380px;
+            .gmnoprint,
+            .gm-style-cc,
+            button[aria-label="Toggle fullscreen view"] {
+                display: none;
+            }
+        }
+
+        .content {
+            p {
+                a {
+                    color: $gold;
+                    transition: color ease-in-out 0.3s;
+                    &:hover,
+                    &:focus {
+                        color: $grey-darker;
+                    }
+                }
+            }
+        }
+    }
+
+    .container {
+        .content {
+            &:first-child {
+                margin-bottom: 4rem;
+            }
+        }
+    }
+}
