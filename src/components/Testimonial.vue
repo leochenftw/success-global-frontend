@@ -1,5 +1,5 @@
 <template>
-    <div :class="['testimonial', 'columns', oddeven, {'already-visible': already_visible, 'come-in': visible}]">
+    <div :class="['testimonial', 'is-mobile', 'columns', oddeven, {'already-visible': already_visible, 'come-in': visible}]">
         <div :class="{'avatar-col': true, 'column': true, 'is-narrow': true}">
             <div class="testimonial__avatar is-inline-block">
                 <img v-if="portrait" :src="portrait" :alt="quoter" width="160" height="160" class="is-block">

@@ -7,7 +7,7 @@
                         <img src="../assets/logo.png" alt="Sucess Global" width="88" height="50">
                     </h2>
                     <div class="content">
-                        <p>somet slogan</p>
+                        <p>some slogan</p>
                     </div>
                     <a href="#" class="button is-gold">Request Consultation</a>
                 </div>
@@ -50,11 +50,23 @@
                         </li>
                     </ul>
                 </div>
-                <div class="column">
+                <div class="column footer_misc__news-list">
                     <h2 class="title is-6 is-uppercase">
                         Latest updates
                     </h2>
-
+                    <ul v-if="news">
+                        <li v-for="item in news">
+                            <a class="columns footer_misc__news" :href="item.url">
+                                <div class="footer_misc__news__thumb column is-narrow">
+                                    <img :src="[base_url + item.thumb]" width="50" height="50" />
+                                </div>
+                                <div class="footer_misc__news__content column">
+                                    <h3 class="title is-6">{{item.title}}</h3>
+                                    <p class="subtitle is-6">{{nzst(item.date)}}</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -86,8 +98,10 @@ export default
     data        :   function()
                     {
                         return  {
+                                    base_url        :   global.base_url,
                                     contact         :   null,
                                     social_medias   :   [],
+                                    news            :   [],
                                     sitename        :   null
                                 };
                     },
@@ -102,8 +116,14 @@ export default
                                                 var d           =   new Date();
 
                                                 return d.getFullYear();
+                                            },
+                        nzst            :   function(raw)
+                                            {
+                                                var d           =   new Date(raw);
+                                                return d.nzst();
                                             }
                     },
+    computed    :   {},
     mounted     :   function()
                     {
 

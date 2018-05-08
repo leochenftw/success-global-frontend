@@ -1,9 +1,7 @@
 .section-contact {
     &__branch {
         margin-top: 0;
-        &:not(:last-child) {
-            margin-bottom: 3rem;
-        }
+        margin-bottom: 3rem !important;
 
         .title {
             color: $max-yellow-red;

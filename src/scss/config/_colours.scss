@@ -18,8 +18,10 @@ $gold           :   $max-yellow-red;
             color: $eeri-black;
             background-color: $max-yellow-red;
 
-            &:hover {
-                background-color: $white;
+            &:hover,
+            &:active,
+            &:focus {
+                background-color: $eeri-black;
                 color: $max-yellow-red;
             }
         }

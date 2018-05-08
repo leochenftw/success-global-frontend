@@ -25,6 +25,7 @@ global.main                 =   null;
 global.testimonials         =   [];
 global.footer               =   null;
 global.base_url             =   location.hostname == 'localhost' ? 'https://sgl.leochen.co.nz' : '';
+global.recaptcha_callback   =   null;
 global.getdata              =   function(path, onDone, onFail)
                                 {
                                     axios.get(global.base_url + path)
@@ -36,6 +37,7 @@ global.getdata              =   function(path, onDone, onFail)
                                             global.main.hero_text       =   response.data.hero_text;
                                             global.footer.sitename      =   response.data.sitename;
                                             global.footer.contact       =   response.data.contact.branches;
+                                            global.footer.news          =   response.data.news;
                                             if (onDone) {
                                                 onDone(response.data);
                                             }

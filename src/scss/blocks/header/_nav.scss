@@ -6,9 +6,9 @@
 
 &-item {
     a:not(.button) {
-        color: $max-yellow-red;
+        color: $eeri-black;
         &:hover {
-            color: $white;
+            color: $max-yellow-red;
         }
     }
 
@@ -20,6 +20,6 @@
 &-burger {
     height: auto;
     span {
-        background-color: $max-yellow-red;
+        background-color: $eeri-black;
     }
 }

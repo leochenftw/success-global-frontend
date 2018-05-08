@@ -283,3 +283,10 @@ function detectIE() {
   // other browser
   return false;
 }
+
+Date.prototype.nzst             =   function(include_time)
+{
+    var d                       =   this.getDate().DoubleDigit() + '/' + (this.getMonth() + 1).DoubleDigit() + '/' + this.getFullYear(),
+        t                       =   ' - ' + this.getHours().DoubleDigit() + ':' + this.getMinutes().DoubleDigit() + ':' + this.getSeconds().DoubleDigit();
+    return d + (include_time ? t : '');
+};

@@ -1,5 +1,5 @@
 <template>
-    <header id="header" class="bg-eerie-black">
+    <header id="header">
         <nav class="navbar is-transparent">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/#/">
@@ -11,7 +11,6 @@
                     <span></span>
                 </div>
             </div>
-
             <div id="mobile-menu" :class="{'navbar-menu': true, 'is-active': mobile_menu_is_active}">
                 <div class="navbar-end">
                     <div class="navbar-item" v-for="item in navigation">

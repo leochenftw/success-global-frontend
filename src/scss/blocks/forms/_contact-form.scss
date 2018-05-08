@@ -1,0 +1,14 @@
+.contact-form {
+    .textarea {
+        min-height: 225px;
+    }
+
+    .input,
+    .textarea {
+        &:focus,
+        &:active {
+            box-shadow: 0 0 0 0.125em rgba($gold, 0.25);
+            border-color: $gold;
+        }
+    }
+}

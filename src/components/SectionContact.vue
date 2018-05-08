@@ -5,8 +5,6 @@
             <h2 class="title is-1 is-absolute-centered">{{title}}</h2>
         </div>
         <div class="container">
-            <div class="content" v-html="content"></div>
-
             <div class="section-contact__branches">
                 <Branch
                     v-for="(item, i) in branches"
@@ -21,12 +19,22 @@
                     :lng="item.lng"
                 />
             </div>
+            <div class="section-contact__contact-form columns">
+                <div class="column is-5">
+                    <h3 class="title is-3 is-uppercase">Say hello</h3>
+                    <div class="content" v-html="content"></div>
+                </div>
+                <div class="column">
+                    <ContactForm />
+                </div>
+            </div>
         </div>
     </section>
 </template>
 
 <script>
 import Branch from './Branch';
+import ContactForm from './forms/ContactForm';
 export default
 {
     name        :   'SectionContact',
@@ -42,7 +50,10 @@ export default
 
                                 };
                     },
-    components  :   { Branch },
+    components  :   {
+                        Branch,
+                        ContactForm
+                    },
     mounted     :   function()
                     {
 
