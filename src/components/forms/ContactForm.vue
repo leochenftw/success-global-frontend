@@ -29,9 +29,9 @@
         </div>
     </form>
     <div v-else>
-        <h3 class="title is-3 is-uppercase">Thank you</h3>
+        <h3 class="title is-3 is-uppercase">Thanks for your enquiry.</h3>
         <div class="content">
-            <p>We have received your message, and we will get back to you shortly!</p>
+            <p>One of your dedicated team members will be in touch very shortly. If your enquiry is urgent then please call us on Toll Free <a href="tel:0508 4 VISAS">0508 4 VISAS</a> (in New Zealand only) or <a href="tel:+64 4 499 3776">+64 4 499 3776</a> (if calling from overseas).</p>
         </div>
     </div>
 </template>
