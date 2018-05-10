@@ -19,6 +19,7 @@
             </div>
         </div>
         <div class="field action">
+            <input type="hidden" name="csrf" :value="csrf" />
             <button
                 type="submit"
                 v-on:click="onclick"
@@ -43,7 +44,7 @@ export default
 {
     name        :   'ContactForm',
     props       :   [
-
+                        'csrf'
                     ],
     data        :   function()
                     {

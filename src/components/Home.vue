@@ -37,6 +37,7 @@
             :hero="section_contact.hero"
             :content="section_contact.content"
             :branches="section_contact.branches"
+            :csrf="csrf"
         />
     </div>
 </template>
@@ -60,7 +61,8 @@ export default
                                     section_about               :   null,
                                     section_testimonials        :   null,
                                     section_team                :   null,
-                                    section_contact             :   null
+                                    section_contact             :   null,
+                                    csrf                        :   null
                                 };
                     },
     components  :   {
@@ -78,6 +80,7 @@ export default
                             me.$route.path,
                             function(data)
                             {
+                                me.csrf                         =   data.csrf;
                                 me.carousel                     =   data.carousel;
                                 me.carousel.forEach(function(o)
                                 {

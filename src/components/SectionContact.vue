@@ -25,7 +25,7 @@
                     <div class="content" v-html="content"></div>
                 </div>
                 <div class="column">
-                    <ContactForm />
+                    <ContactForm :csrf="csrf" />
                 </div>
             </div>
         </div>
@@ -42,7 +42,8 @@ export default
                         'title',
                         'hero',
                         'content',
-                        'branches'
+                        'branches',
+                        'csrf'
                     ],
     data        :   function()
                     {
