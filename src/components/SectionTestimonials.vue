@@ -1,5 +1,5 @@
 <template>
-    <section class="testimonials jarallax-section">
+    <section id="section-testimonials" class="testimonials jarallax-section">
         <div class="testimonials__hero jarallax">
             <img class="jarallax-img" :src="hero" alt="">
             <div class="is-absolute-centered testimonials__hero__highlights__container container">

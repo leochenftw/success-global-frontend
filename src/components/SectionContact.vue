@@ -1,5 +1,5 @@
 <template>
-    <section class="section-contact jarallax-section">
+    <section id="section-contact" class="section-contact jarallax-section">
         <div class="section-contact__hero jarallax">
             <img class="jarallax-img" :src="hero" alt="">
             <h2 class="title is-1 is-absolute-centered">{{title}}</h2>

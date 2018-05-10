@@ -10,11 +10,12 @@
         "fonts/fa-regular",
         "fonts/fontawesome";
 
-@import 'config/colours',
-        'config/typography',
+@import 'config/typography',
         'config/animations';
 
 @import "bulma/bulma";
+
+@import 'config/colours';
 
 @import 'blocks/header/header',
         'blocks/owl-carousel/owl.carousel',
@@ -25,7 +26,8 @@
         'blocks/contact/contact',
         'blocks/service/service',
         'blocks/forms/contact-form',
-        'blocks/footer/footer';
+        'blocks/footer/footer',
+        'blocks/overlays/loading-overlay';
 
 html {
     &.is {

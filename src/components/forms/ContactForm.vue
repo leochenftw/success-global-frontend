@@ -20,6 +20,7 @@
         </div>
         <div class="field action">
             <button
+                type="submit"
                 v-on:click="onclick"
                 :class="['button', 'is-medium', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
                 data-sitekey="6Lc8BlgUAAAAACwpqCYajCkQEihsnSui-vcVtgW_"
@@ -28,10 +29,10 @@
             </button>
         </div>
     </form>
-    <div v-else>
-        <h3 class="title is-3 is-uppercase">Thanks for your enquiry.</h3>
+    <div class="contact-form-acknowledgement" v-else>
+        <h3 class="title is-3 is-uppercase">Thanks for your enquiry</h3>
         <div class="content">
-            <p>One of your dedicated team members will be in touch very shortly. If your enquiry is urgent then please call us on Toll Free <a href="tel:0508 4 VISAS">0508 4 VISAS</a> (in New Zealand only) or <a href="tel:+64 4 499 3776">+64 4 499 3776</a> (if calling from overseas).</p>
+            <p>One of your dedicated team members will be in touch very shortly. If your enquiry is urgent then please call us on Toll Free <a class="color-is-gold" href="tel:0508 4 VISAS">0508 4 VISAS</a> (in New Zealand only) or <a class="color-is-gold" href="tel:+64 4 499 3776">+64 4 499 3776</a> (if calling from overseas).</p>
         </div>
     </div>
 </template>

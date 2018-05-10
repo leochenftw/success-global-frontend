@@ -7,6 +7,18 @@ $cafe-noir      :   #423826;
 $grey-darker    :   $eeri-black;
 $gold           :   $max-yellow-red;
 
+.color {
+    &-is {
+        &-gold {
+            color: $gold !important;
+        }
+
+        &-red {
+            color: $danger !important;
+        }
+    }
+}
+
 .bg-eerie-black {
     background-color: $eeri-black;
 }

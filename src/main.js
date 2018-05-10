@@ -6,10 +6,13 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import router from './router';
 import TeamMemberModal from './components/TeamMemberModal';
+import ConsultationForm from './components/forms/ConsultationForm';
+import LoadingOverlay from './components/LoadingOverlay';
 // import $ from 'jquery';
 import axios from 'axios';
 require('lightbox2');
 require('jquery-visible');
+require('jquery.scrollto');
 require('./plugins/jplugins');
 
 axios.defaults.headers.common = {
@@ -26,6 +29,7 @@ global.testimonials         =   [];
 global.footer               =   null;
 global.base_url             =   location.hostname == 'localhost' ? 'https://sgl.leochen.co.nz' : '';
 global.recaptcha_callback   =   null;
+global.overlay              =   null;
 global.getdata              =   function(path, onDone, onFail)
                                 {
                                     axios.get(global.base_url + path)
@@ -51,6 +55,14 @@ global.getdata              =   function(path, onDone, onFail)
                                         {
                                             var body_class              =   path == '/' ? 'home' : path;
                                             $('body').removeAttr('class').addClass(body_class);
+                                            setTimeout(function()
+                                            {
+                                                global.overlay.fade     =   true;
+                                                setTimeout(function()
+                                                {
+                                                    global.overlay.show =   false;
+                                                }, 300);
+                                            }, 100);
                                         });
                                 };
 /* eslint-disable no-new */
@@ -104,6 +116,26 @@ var header      =   new Vue(
                                         {
                                             global.team_modal       =   this.$children[0];
                                         }
+                    }),
+    consul_form =   new Vue(
+                    {
+                        el          :   '#consultation-form',
+                        template    :   '<ConsultationForm />',
+                        components  :   { ConsultationForm },
+                        mounted     :   function()
+                                        {
+
+                                        }
+                    }),
+    overlay     =   new Vue(
+                    {
+                        el          :   '#loading-overlay',
+                        template    :   '<LoadingOverlay />',
+                        components  :   { LoadingOverlay },
+                        mounted     :   function()
+                                        {
+                                            global.overlay          =   this.$children[0];
+                                        }
                     });
 
 $(window).scroll(function(e)
@@ -112,4 +144,4 @@ $(window).scroll(function(e)
     {
         t.is_visible();
     });
-});
+}).scroll();

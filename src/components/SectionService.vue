@@ -1,5 +1,5 @@
 <template>
-    <section class="section service-tiles">
+    <section id="section-service" class="service-tiles section">
         <div class="container">
             <h2 class="is-hidden">Our services</h2>
             <div class="columns is-multiline">
