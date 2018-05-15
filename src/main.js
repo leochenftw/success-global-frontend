@@ -28,20 +28,26 @@ global.main                 =   null;
 global.testimonials         =   [];
 global.footer               =   null;
 global.base_url             =   location.hostname == 'localhost' ? 'https://sgl.leochen.co.nz' : '';
-global.recaptcha_callback   =   null;
+global.recaptcha_placed     =   false;
+global.fire_contactform     =   null;
+global.fire_consultation    =   null;
+global.consultation_form    =   null;
 global.overlay              =   null;
 global.getdata              =   function(path, onDone, onFail)
                                 {
                                     axios.get(global.base_url + path)
                                         .then(function (response)
                                         {
-                                            global.header.navigation    =   response.data.navigation;
-                                            global.main.title           =   response.data.title;
-                                            global.main.hero            =   response.data.hero;
-                                            global.main.hero_text       =   response.data.hero_text;
-                                            global.footer.sitename      =   response.data.sitename;
-                                            global.footer.contact       =   response.data.contact.branches;
-                                            global.footer.news          =   response.data.news;
+                                            global.header.navigation                    =   response.data.navigation;
+                                            global.main.title                           =   response.data.title;
+                                            global.main.hero                            =   response.data.hero;
+                                            global.main.hero_text                       =   response.data.hero_text;
+                                            global.footer.sitename                      =   response.data.sitename;
+                                            global.footer.contact                       =   response.data.contact.branches;
+                                            global.footer.news                          =   response.data.news;
+                                            global.consultation_form.csrf               =   response.data.csrf;
+                                            global.consultation_form.visa_categories    =   response.data.visa_categories;
+
                                             if (onDone) {
                                                 onDone(response.data);
                                             }
@@ -73,14 +79,14 @@ var header      =   new Vue(
                         template    :   '<Header />',
                         components  :   { Header },
                         methods     :   {
-                                            getHeader               :   function()
-                                                                        {
-                                                                            return this.$children[0];
-                                                                        }
+                                            getHeader                   :   function()
+                                                                            {
+                                                                                return this.$children[0];
+                                                                            }
                                         },
                         mounted     :   function()
                                         {
-                                            global.header           =   this.$children[0];
+                                            global.header               =   this.$children[0];
                                         }
                     }),
 
@@ -92,8 +98,7 @@ var header      =   new Vue(
                         components  :   { App },
                         mounted     :   function()
                                         {
-                                            console.log($);
-                                            global.main             =   this.$children[0];
+                                            global.main                 =   this.$children[0];
                                         }
                     }),
     footer      =   new Vue(
@@ -104,7 +109,7 @@ var header      =   new Vue(
                         components  :   { Footer },
                         mounted     :   function()
                                         {
-                                            global.footer           =   this.$children[0];
+                                            global.footer               =   this.$children[0];
                                         }
                     }),
     team_modal  =   new Vue(
@@ -114,7 +119,7 @@ var header      =   new Vue(
                         components  :   { TeamMemberModal },
                         mounted     :   function()
                                         {
-                                            global.team_modal       =   this.$children[0];
+                                            global.team_modal           =   this.$children[0];
                                         }
                     }),
     consul_form =   new Vue(
@@ -124,7 +129,7 @@ var header      =   new Vue(
                         components  :   { ConsultationForm },
                         mounted     :   function()
                                         {
-
+                                            global.consultation_form    =   this.$children[0];
                                         }
                     }),
     overlay     =   new Vue(
@@ -134,7 +139,7 @@ var header      =   new Vue(
                         components  :   { LoadingOverlay },
                         mounted     :   function()
                                         {
-                                            global.overlay          =   this.$children[0];
+                                            global.overlay              =   this.$children[0];
                                         }
                     });
 

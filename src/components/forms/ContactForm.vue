@@ -25,7 +25,7 @@
                 v-on:click="onclick"
                 :class="['button', 'is-medium', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
                 data-sitekey="6Lc8BlgUAAAAACwpqCYajCkQEihsnSui-vcVtgW_"
-                data-callback="recaptcha_callback">
+                data-callback="fire_contactform">
                 Submit
             </button>
         </div>
@@ -78,8 +78,11 @@ export default
                     },
     mounted     :   function()
                     {
-                        global.recaptcha_callback   =   this.submit;
-                        $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
+                        global.fire_contactform     =   this.submit;
+
+                        if (!global.recaptcha_placed) {
+                            $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
+                        }
                     },
     updated     :   function()
                     {

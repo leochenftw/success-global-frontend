@@ -18,9 +18,7 @@
                     </div>
                     <div class="navbar-item">
                         <div class="field is-grouped">
-                            <a class="button is-gold" href="/#/">
-                                <span>Request Consultation</span>
-                            </a>
+                            <a class="button is-gold" href="#" v-on:click="show_consultation">Book Consultation</a>
                         </div>
                     </div>
                 </div>
@@ -53,6 +51,11 @@ export default
                         // console.log('header udpated');
                     },
     methods     :   {
+                        show_consultation   :   function(e)
+                                                {
+                                                    e.preventDefault();
+                                                    global.consultation_form.show   =   true;
+                                                },
                         scroll_to           :   function(e, to)
                                                 {
                                                     e.preventDefault();
