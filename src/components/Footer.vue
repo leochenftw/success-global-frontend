@@ -72,15 +72,17 @@
         </div>
         <div class="footer__closure container">
             <div class="columns">
-                <div class="column copyright-privacy-policy">{{get_year()}} © {{sitename}}. <a href="/#/privacy-policy">Privacy policy</a></div>
-                <div class="column social-links has-text-right">
-                    <em>Follow us: </em>
+                <div class="column copyright-privacy-policy">
                     <a class="social-link" href="https://www.facebook.com/successglobalnewzealand" target="_blank">
                         <span class="icon"><i class="fab fa-facebook-f"></i></span>
                     </a>
                     <a class="social-link" href="https://twitter.com/SuccessGlobalNZ" target="_blank">
                         <span class="icon"><i class="fab fa-twitter"></i></span>
                     </a>
+                    {{get_year()}} © {{sitename}}.
+                </div>
+                <div class="column social-links has-text-right">
+                    protected by <a href="#">reCAPTCHA</a></a>
                 </div>
             </div>
         </div>

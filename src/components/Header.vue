@@ -55,6 +55,7 @@ export default
                                                 {
                                                     e.preventDefault();
                                                     global.consultation_form.show   =   true;
+                                                    $('html').addClass('is-locked');
                                                 },
                         scroll_to           :   function(e, to)
                                                 {

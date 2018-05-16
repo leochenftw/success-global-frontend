@@ -5,7 +5,7 @@
                 <input required class="input is-medium" type="text" name="first_name" placeholder="First Name">
             </div>
             <div class="column">
-                <input required class="input is-medium" type="text" name="last_name" placeholder="Last Name">
+                <input required class="input is-medium" type="text" name="last_name" placeholder="Surname">
             </div>
         </div>
         <div class="field columns">

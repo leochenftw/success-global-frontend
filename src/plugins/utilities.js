@@ -284,9 +284,21 @@ function detectIE() {
   return false;
 }
 
-Date.prototype.nzst             =   function(include_time)
+Date.prototype.nzst             =   function(include_time, include_second)
 {
     var d                       =   this.getDate().DoubleDigit() + '/' + (this.getMonth() + 1).DoubleDigit() + '/' + this.getFullYear(),
-        t                       =   ' - ' + this.getHours().DoubleDigit() + ':' + this.getMinutes().DoubleDigit() + ':' + this.getSeconds().DoubleDigit();
+        t                       =   '',
+        ampm                    =   this.getHours() >= 12 ? 'pm' : 'am',
+        hours                   =   this.getHours() % 12;
+
+    hours                       =   hours ? hours : 12;
+    t                           =   ' - ' + hours + '.' + this.getMinutes().DoubleDigit();
+
+    if (include_second) {
+        t                       +=  '.' + this.getSeconds().DoubleDigit();
+    }
+
+    t                           +=  ampm;
+
     return d + (include_time ? t : '');
 };
