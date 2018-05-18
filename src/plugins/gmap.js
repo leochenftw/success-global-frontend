@@ -320,9 +320,19 @@ var gmap = function(api_key, map_id, locs, zoom_rate, routing_options, disableUI
 
             for (var i = 0; i < locs.length; i++) {
                 var marker = new google.maps.Marker({
-                    position: locs[i],
-                    map: map
+                    position    :   locs[i],
+                    map         :   map,
+                    url         :   locs[i].url
                 });
+
+                if (locs[i].cbf) {
+                    marker.addListener('click', locs[i].cbf);
+                } else {
+                    marker.addListener('click', function()
+                    {
+                        window.open(this.url, '_blank');
+                    });
+                }
 
                 markers.push(marker);
             }
@@ -357,6 +367,7 @@ var gmap = function(api_key, map_id, locs, zoom_rate, routing_options, disableUI
             position: {lat: lat, lng: lng},
             map: map
         });
+
         markers.push(marker);
         map.setCenter({lat: lat, lng: lng});
     };
@@ -414,6 +425,7 @@ var gmap = function(api_key, map_id, locs, zoom_rate, routing_options, disableUI
     $.fn.gmap = function(cbf)
     {
         var self        =   $(this),
+            url         =   self.data('url'),
             callback    =   cbf,
             lat         =   self.data('lat').toFloat(),
             lng         =   self.data('lng').toFloat(),
@@ -421,7 +433,7 @@ var gmap = function(api_key, map_id, locs, zoom_rate, routing_options, disableUI
             api         =   self.data('api'),
             input       =   self.data('input'),
             output      =   self.data('output'),
-            map         =   new gmap(api, self.attr('id'), [{lat: lat, lng: lng}], zoom, {enabled: (input !== undefined ? true : false), input_id: input, output_id: output});
+            map         =   new gmap(api, self.attr('id'), [{lat: lat, lng: lng, url: url, cbf: callback}], zoom, {enabled: (input !== undefined ? true : false), input_id: input, output_id: output});
 
         return map;
     };

@@ -20,6 +20,7 @@
                 data-api="AIzaSyAg9k1JbmuWUZKevrQGRrdwBn0rdeMPVHA"
                 :data-lat="lat"
                 :data-lng="lng"
+                :data-url="url"
                 data-zoom="13"
             >
             </div>
@@ -41,7 +42,8 @@ export default
                         'email',
                         'options',
                         'lat',
-                        'lng'
+                        'lng',
+                        'url'
                     ],
     data        :   function()
                     {

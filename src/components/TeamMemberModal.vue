@@ -1,6 +1,6 @@
 <template>
     <transition name="modal">
-        <div v-if="show" class="modal is-active">
+        <div v-if="show" :class="{'modal': true, 'is-active': true, 'loaded': loaded}">
             <div class="modal-background" v-on:click="close_modal"></div>
             <div class="modal-content">
                 <div class="box">
@@ -27,6 +27,7 @@ export default
                     {
                         return  {
                                     show        :   false,
+                                    loaded      :   false,
                                     title       :   null,
                                     content     :   null,
                                     portrait    :   null
@@ -39,17 +40,27 @@ export default
                     },
     updated     :   function()
                     {
-
+                        if (this.portrait) {
+                            let me              =   this;
+                            if (!me.loaded) {
+                                console.log('here');
+                                $(this.$el).find('img').on('load', function(e)
+                                {
+                                    me.loaded       =   true;
+                                });
+                            }
+                        }
                     },
     methods     :   {
                         close_modal             :   function(e)
                                                     {
                                                         e.preventDefault();
-                                                        team_modal.title        =   null;
-                                                        team_modal.content      =   null;
-                                                        team_modal.role         =   null;
-                                                        team_modal.portrait     =   null;
-                                                        team_modal.show         =   false;
+                                                        this.title          =   null;
+                                                        this.content        =   null;
+                                                        this.loaded         =   false;
+                                                        // team_modal.role         =   null;
+                                                        this.portrait       =   null;
+                                                        this.show           =   false;
                                                         $('html').removeClass('is-locked');
                                                     }
                     }

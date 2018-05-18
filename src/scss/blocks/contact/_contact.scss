@@ -10,7 +10,8 @@
         .gmap-holder {
             height: 100%;
             min-height: 380px;
-            .gmnoprint,
+            .gm-bundled-control-on-bottom,
+            .gm-style-mtc,
             .gm-style-cc,
             button[aria-label="Toggle fullscreen view"] {
                 display: none;

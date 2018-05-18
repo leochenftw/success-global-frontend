@@ -17,6 +17,7 @@
                     :options="item.options"
                     :lat="item.lat"
                     :lng="item.lng"
+                    :url="item.url"
                 />
             </div>
             <div class="section-contact__contact-form columns">
