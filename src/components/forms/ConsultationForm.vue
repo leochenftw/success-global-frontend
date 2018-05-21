@@ -104,46 +104,48 @@
                     <p class="help" v-if="errors.additional_info">This is a help text</p>
                 </div>
 
-                <div class="field">
-                    <label class="label">Passport Bio Page</label>
-                    <div class="control">
-                        <div class="file has-name">
-                            <label class="file-label">
-                                <input class="file-input" type="file" name="passport_bio" accept="image/*,application/pdf">
-                                <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
+                <div class="columns">
+                    <div class="field column">
+                        <label class="label">Passport Bio Page</label>
+                        <div class="control">
+                            <div class="file has-name is-boxed">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="passport_bio" accept="image/*,application/pdf">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            Choose a file…
+                                        </span>
                                     </span>
-                                    <span class="file-label">
-                                        Choose a file…
+                                    <span class="file-name">
+                                        Please choose to upload your copy
                                     </span>
-                                </span>
-                                <span class="file-name">
-                                    Please choose to upload your copy
-                                </span>
-                            </label>
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="field">
-                    <label class="label">Current Visa Label/eVisa</label>
-                    <div class="control">
-                        <div class="file has-name">
-                            <label class="file-label">
-                                <input class="file-input" type="file" name="visa_label" accept="image/*,application/pdf">
-                                <span class="file-cta">
-                                    <span class="file-icon">
-                                        <i class="fas fa-upload"></i>
+                    <div class="field column">
+                        <label class="label">Current Visa Label/eVisa</label>
+                        <div class="control">
+                            <div class="file has-name is-boxed">
+                                <label class="file-label">
+                                    <input class="file-input" type="file" name="visa_label" accept="image/*,application/pdf">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                            Choose a file…
+                                        </span>
                                     </span>
-                                    <span class="file-label">
-                                        Choose a file…
+                                    <span class="file-name">
+                                        Please choose to upload your copy
                                     </span>
-                                </span>
-                                <span class="file-name">
-                                    Please choose to upload your copy
-                                </span>
-                            </label>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -153,9 +155,9 @@
                     <div class="control">
                         <div class="select">
                             <select name="appointment_date_time" v-on:change="appointment_time_change">
-                                <option value="-1">- Pick a time slot -</option>
-                                <option v-for="session in sessions" :value="session.id">{{session.dt}}</option>
-                                <option value="0">Arrange for me</option>
+                                <option value="-1">- Pick a session -</option>
+                                <option v-for="session in sessions" :data-amount="session.amount" :value="session.id">{{session.dt}}, {{session.duration}} minutes , ${{session.amount}}</option>
+                                <!-- <option value="0">Arrange for me</option> -->
                             </select>
                         </div>
                     </div>
@@ -164,14 +166,19 @@
             </section>
             <footer class="modal-card-foot">
                 <input type="hidden" name="csrf" :value="csrf" />
-                <button
-                    v-on:click="onclick"
-                    :class="['button', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
-                    data-sitekey="6Lc8BlgUAAAAACwpqCYajCkQEihsnSui-vcVtgW_"
-                    data-callback="fire_consultation">
-                    Submit
-                </button>
-                <button class="button">Cancel</button>
+                <div class="column is-paddingless">
+                    {{amount}}
+                </div>
+                <div class="column is-narrow is-paddingless">
+                    <button
+                        v-on:click="onclick"
+                        :class="['button', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
+                        data-sitekey="6Lc8BlgUAAAAACwpqCYajCkQEihsnSui-vcVtgW_"
+                        data-callback="fire_consultation">
+                        Submit
+                    </button>
+                    <button class="button">Cancel</button>
+                </div>
             </footer>
         </div>
     </form>
@@ -188,12 +195,13 @@ export default
     data        :   function()
                     {
                         return  {
-                                    show            :   true,
+                                    show            :   false,
                                     endpoint        :   global.base_url + '/api/form/book-consultation',
                                     is_loading      :   false,
                                     has_sent        :   false,
                                     csrf            :   null,
                                     sessions        :   [],
+                                    amount          :   '$0.00',
                                     other_visa      :   {
                                                             current         :   false,
                                                             intend          :   false
@@ -223,10 +231,12 @@ export default
                                                             me.date_help            =   'If none of the available sessions suits your schedule, please choose "Arrange for me"';
 
                                                             if (val > 0) {
-                                                                me.date_help        =   'We will try to book you in yoru desired session, but we might contact you for rearrangement in some occasions.';
+                                                                me.date_help        =   'We will try to book you in your desired session, but we might contact you for rearrangement in some occasions.';
                                                             } else if (val < 0) {
                                                                 me.date_help        =   'We will contact you to arrange a suitable time.';
                                                             }
+
+                                                            this.amount             =   selected.data('amount').toDollar();
 
                                                         },
                         show_specify                :   function(e)
@@ -259,6 +269,15 @@ export default
 
                                                             let data                =   new FormData(this.$el),
                                                                 me                  =   this;
+
+                                                            if ($(this.$el).find('input[name="passport_bio"]').val().length == 0) {
+                                                                data.delete('passport_bio');
+                                                            }
+
+                                                            if ($(this.$el).find('input[name="visa_label"]').val().length == 0) {
+                                                                data.delete('visa_label');
+                                                            }
+
                                                             axios.post(this.endpoint, data).then(function(response)
                                                             {
                                                                 me.is_loading       =   false;

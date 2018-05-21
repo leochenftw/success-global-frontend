@@ -15,7 +15,7 @@
         </div>
         <div class="field columns">
             <div class="control column">
-                <textarea required class="textarea is-medium" row="10" name="message" placeholder="Message"></textarea>
+                <textarea class="textarea is-medium" row="10" name="message" placeholder="Message"></textarea>
             </div>
         </div>
         <div class="field action">
