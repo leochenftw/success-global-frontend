@@ -23,17 +23,17 @@ export default
     data        :   function()
                     {
                         return  {
-                                    column_size                     :   3
+                                    column_size                         :   3
                                 };
                     },
     components  :   {  },
     mounted     :   function()
                     {
-                        var me                                      =   this;
+                        var me                                          =   this;
                         $(window).resize(function(e)
                         {
-                            var w                                   =   $(window).width();
-                            me.column_size                          =   w < 1024 ? 4 : 3;
+                            var w                                       =   $(window).width();
+                            me.column_size                              =   w < 1024 ? 4 : 3;
                         }).resize();
                     },
     updated     :   function()
@@ -44,11 +44,13 @@ export default
                         pop_modal       :   function(e)
                                             {
                                                 e.preventDefault();
-                                                team_modal.title    =   this.title;
-                                                team_modal.content  =   this.content;
-                                                team_modal.role     =   this.role;
-                                                team_modal.portrait =   this.portraits.original;
-                                                team_modal.show     =   true;
+                                                team_modal.title        =   this.title;
+                                                team_modal.content      =   this.content;
+                                                team_modal.role         =   this.role;
+                                                team_modal.portrait     =   this.portraits.original;
+                                                team_modal.show         =   true;
+                                                global.disable_scroll   =   true;
+
                                                 $('html').addClass('is-locked');
                                             },
                         get_bg          :   function()

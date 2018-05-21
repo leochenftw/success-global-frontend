@@ -255,6 +255,7 @@ export default
                                                             e.preventDefault();
                                                             this.show               =   false;
                                                             $('html').removeClass('is-locked');
+                                                            global.disable_scroll   =   false;
                                                         },
                         onclick                     :   function(e)
                                                         {

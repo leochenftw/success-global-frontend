@@ -55,12 +55,13 @@ export default
                         close_modal             :   function(e)
                                                     {
                                                         e.preventDefault();
-                                                        this.title          =   null;
-                                                        this.content        =   null;
-                                                        this.loaded         =   false;
+                                                        this.title              =   null;
+                                                        this.content            =   null;
+                                                        this.loaded             =   false;
                                                         // team_modal.role         =   null;
-                                                        this.portrait       =   null;
-                                                        this.show           =   false;
+                                                        this.portrait           =   null;
+                                                        this.show               =   false;
+                                                        global.disable_scroll   =   false;
                                                         $('html').removeClass('is-locked');
                                                     }
                     }

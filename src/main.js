@@ -33,6 +33,7 @@ global.fire_contactform     =   null;
 global.fire_consultation    =   null;
 global.consultation_form    =   null;
 global.overlay              =   null;
+global.disable_scroll       =   false,
 global.getdata              =   function(path, onDone, onFail)
                                 {
                                     axios.get(global.base_url + path)
@@ -157,3 +158,10 @@ $(window).scroll(function(e)
         t.is_visible();
     });
 }).scroll();
+
+document.ontouchmove                =   function(e)
+                                        {
+                                            if (global.disable_scroll) {
+                                                e.preventDefault();
+                                            }
+                                        };
