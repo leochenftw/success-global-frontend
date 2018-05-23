@@ -299,13 +299,12 @@ export default
                                                             let data                =   new FormData(this.$el),
                                                                 me                  =   this;
 
-                                                            if ($(this.$el).find('input[name="passport_bio"]')[0].files.length == 0) {
-                                                                data.delete('passport_bio');
-                                                            }
-
-                                                            if ($(this.$el).find('input[name="visa_label"]')[0].files.length == 0) {
-                                                                data.delete('visa_label');
-                                                            }
+                                                            $(me.$el).find('input[type="file"]').each(function(i, el)
+                                                            {
+                                                                if (el.files.length == 0) {
+                                                                    data.delete(el.name);
+                                                                }
+                                                            });
 
                                                             axios.post(this.endpoint, data).then(function(response)
                                                             {

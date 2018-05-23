@@ -21,6 +21,7 @@
             :title="section_testimonials.title"
             :content="section_testimonials.content"
             :hero="section_testimonials.hero"
+            :section_url="section_testimonials.section_url"
             :testimonials="section_testimonials.testimonials"
             :highlights="section_testimonials.highlights"
         />

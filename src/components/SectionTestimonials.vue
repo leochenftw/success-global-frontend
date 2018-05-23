@@ -17,7 +17,7 @@
             <div class="has-text-centered content" v-if="content" v-html="content"></div>
             <div class="testimonials" v-if="testimonials">
                 <Testimonial
-                    v-for="(item, i) in testimonials"
+                    v-for="(item, i) in testimonials.list"
                     :key="i"
                     :index="i"
                     :quoter="item.quoter"
@@ -25,6 +25,10 @@
                     :rating="item.rating"
                     :portrait="item.portrait"
                 />
+            </div>
+            <div class="testimonials__actions has-text-centered">
+                <button v-if="testimonials.next" v-on:click="load_more" class="button is-gold is-large">Load more</button>
+                <p v-else>- That's all -</p>
             </div>
         </div>
     </section>
@@ -44,12 +48,15 @@ export default
                         'title',
                         'hero',
                         'content',
+                        'section_url',
                         'testimonials',
                         'highlights'
                     ],
     data        :   function()
                     {
-                        return  {};
+                        return  {
+
+                                };
                     },
     components  :   { Testimonial },
     mounted     :   function()
@@ -61,9 +68,33 @@ export default
                             speed: 0.2
                         });
                     },
-    updated     :   function()
-                    {
+    computed    :   {
+                        next_url            :   function()
+                                                {
+                                                    return  this.testimonials.next ?
+                                                            global.base_url + this.section_url + this.testimonials.next :
+                                                            null;
+                                                }
+                    },
+    methods     :   {
+                        load_more           :   function(e)
+                                                {
+                                                    e.preventDefault();
 
+                                                    if (!this.next_url) {
+                                                        return false;
+                                                    }
+
+                                                    let me                      =   this;
+                                                    axios.get(this.next_url).then(function(response)
+                                                    {
+                                                        me.testimonials.next    =   response.data.testimonials.testimonials.next;
+                                                        me.testimonials.list    =   me.testimonials.list.concat(response.data.testimonials.testimonials.list);
+                                                        setTimeout(function () {
+                                                            $(window).scroll();
+                                                        }, 10);
+                                                    });
+                                                }
                     }
 }
 </script>
