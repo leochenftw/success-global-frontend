@@ -1,0 +1,92 @@
+.modal {
+
+    &-content {
+        .box {
+            padding-bottom: 48px;
+            figure {
+                position: relative;
+                padding-top: 69.44333333%;
+                img {
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: auto;
+                    display: block;
+                    position: absolute;
+                }
+                margin-bottom: 24px;
+            }
+
+            .content {
+
+            }
+
+            h2, h3, h4, h5, h6, strong, a {
+                color: $gold;
+            }
+
+            .contact {
+                margin-right: 1em;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    &-card {
+        &-head {
+            background-color: $gold;
+        }
+
+        &-title {
+
+        }
+
+        &-body {
+            .column {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            .field {
+                margin-top: 12px;
+                margin-bottom: 24px;
+                .file {
+                    &-name,
+                    &-label {
+                        width: 100%;
+                        max-width: none;
+                    }
+                }
+
+                .control {
+                    .select,
+                    .select select {
+                        width: 100%;
+                    }
+
+                    .select select {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        &-foot {
+            justify-content: space-between;
+            .amount-due {
+                padding-right: 12px;
+                font-size: 24px;
+            }
+
+            &.has-text-centered {
+                justify-content: center;
+            }
+
+            &__buttons {
+
+            }
+        }
+    }
+}

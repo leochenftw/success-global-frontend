@@ -1,5 +1,5 @@
 <template>
-    <form :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
+    <form v-if="!ref" :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
         <div class="modal-background" v-on:click="close"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -104,52 +104,6 @@
                     <p class="help" v-if="errors.additional_info">This is a help text</p>
                 </div>
 
-                <div class="columns">
-                    <div class="field column">
-                        <label class="label">Passport Bio Page</label>
-                        <div class="control">
-                            <div class="file has-name is-boxed">
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="passport_bio" accept="image/*,application/pdf">
-                                    <span class="file-cta">
-                                        <span class="file-icon">
-                                            <i class="fas fa-upload"></i>
-                                        </span>
-                                        <span class="file-label">
-                                            Choose a file…
-                                        </span>
-                                    </span>
-                                    <span class="file-name">
-                                        Please choose to upload your copy
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field column">
-                        <label class="label">Current Visa Label/eVisa</label>
-                        <div class="control">
-                            <div class="file has-name is-boxed">
-                                <label class="file-label">
-                                    <input class="file-input" type="file" name="visa_label" accept="image/*,application/pdf">
-                                    <span class="file-cta">
-                                        <span class="file-icon">
-                                            <i class="fas fa-upload"></i>
-                                        </span>
-                                        <span class="file-label">
-                                            Choose a file…
-                                        </span>
-                                    </span>
-                                    <span class="file-name">
-                                        Please choose to upload your copy
-                                    </span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="field">
                     <label class="label"><span class="color-is-red">*</span> Date/time of the Appointment</label>
                     <div class="control">
@@ -157,19 +111,61 @@
                             <select name="appointment_date_time" v-on:change="appointment_time_change">
                                 <option value="-1">- Pick a session -</option>
                                 <option v-for="session in sessions" :data-amount="session.amount" :value="session.id">{{session.dt}}, {{session.duration}} minutes , ${{session.amount}}</option>
-                                <!-- <option value="0">Arrange for me</option> -->
+                                <option value="0">Arrange for me</option>
                             </select>
                         </div>
                     </div>
                     <p class="help">{{date_help}}</p>
                 </div>
+
+                <div class="columns">
+                    <div class="field column is-half">
+                        <label class="label">Passport Bio Page</label>
+                        <div class="control">
+                            <div class="file has-name is-boxed">
+                                <label class="file-label">
+                                    <input v-on:change="on_file_change" class="file-input" type="file" name="passport_bio" accept="image/*,application/pdf">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label has-text-centered">
+                                            Choose a file…
+                                        </span>
+                                    </span>
+                                    <span class="file-name has-text-centered">{{pass_fn}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field column is-half">
+                        <label class="label">Current Visa Label/eVisa</label>
+                        <div class="control">
+                            <div class="file has-name is-boxed">
+                                <label class="file-label">
+                                    <input v-on:change="on_file_change" class="file-input" type="file" name="visa_label" accept="image/*,application/pdf">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                            <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label has-text-centered">
+                                            Choose a file…
+                                        </span>
+                                    </span>
+                                    <span class="file-name has-text-centered">{{visa_fn}}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
             <footer class="modal-card-foot">
                 <input type="hidden" name="csrf" :value="csrf" />
-                <div class="column is-paddingless">
+                <span class="is-block amount-due is-bold">
                     {{amount}}
-                </div>
-                <div class="column is-narrow is-paddingless">
+                </span>
+                <div class="modal-card-foot__buttons">
                     <button
                         v-on:click="onclick"
                         :class="['button', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
@@ -177,11 +173,26 @@
                         data-callback="fire_consultation">
                         Submit
                     </button>
-                    <button class="button">Cancel</button>
+                    <button v-on:click="close" class="button">Cancel</button>
                 </div>
             </footer>
         </div>
     </form>
+    <div v-else :class="['modal', {'is-active': show}]">
+        <div class="modal-background" v-on:click="close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title is-uppercase">Your Booking Reference</p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <p class="title is-1 is-bold">{{ref}}</p>
+                <p class="subtitle is-7">The <strong>reference number</strong> has been emailed to you too.<br />Please check your inbox.</p>
+            </section>
+            <footer class="modal-card-foot has-text-centered">
+                <button v-on:click="close" class="button">Close</button>
+            </footer>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -195,18 +206,20 @@ export default
     data        :   function()
                     {
                         return  {
+                                    ref             :   null,
                                     show            :   false,
                                     endpoint        :   global.base_url + '/api/form/book-consultation',
                                     is_loading      :   false,
-                                    has_sent        :   false,
                                     csrf            :   null,
                                     sessions        :   [],
+                                    pass_fn         :   'Please choose to upload your copy',
+                                    visa_fn         :   'Please choose to upload your copy',
                                     amount          :   '$0.00',
                                     other_visa      :   {
                                                             current         :   false,
                                                             intend          :   false
                                                         },
-                                    date_help       :   'We only display the next 10 coming up sessions',
+                                    date_help       :   'We only display the next 10 coming up sessions. If none of the available sessions suits your schedule, please choose "Arrange for me"',
                                     errors          :   {
                                                             fullname        :   false,
                                                             surname         :   false,
@@ -222,21 +235,34 @@ export default
                     },
     components  :   {  },
     methods     :   {
+                        on_file_change              :   function(e)
+                                                        {
+                                                            if (e.target.files.length > 0) {
+                                                                let fn              =   e.target.files[0].name;
+                                                                if (e.target.name == 'passport_bio') {
+                                                                    this.pass_fn    =   fn;
+                                                                } else {
+                                                                    this.visa_fn    =   fn;
+                                                                }
+                                                            }
+                                                        },
                         appointment_time_change     :   function(e)
                                                         {
                                                             let selected            =   $(e.target).find('option:selected'),
                                                                 me                  =   this,
-                                                                val                 =   selected.val().toFloat();
+                                                                val                 =   selected.val().toFloat(),
+                                                                amount              =   selected.data('amount') ? selected.data('amount') : 0;
 
-                                                            me.date_help            =   'If none of the available sessions suits your schedule, please choose "Arrange for me"';
+                                                            me.date_help            =   'We only display the next 10 coming up sessions. If none of the available sessions suits your schedule, please choose "Arrange for me"';
+
+                                                            this.amount             =   amount.toDollar();
 
                                                             if (val > 0) {
                                                                 me.date_help        =   'We will try to book you in your desired session, but we might contact you for rearrangement in some occasions.';
-                                                            } else if (val < 0) {
+                                                            } else if (val == 0) {
                                                                 me.date_help        =   'We will contact you to arrange a suitable time.';
+                                                                this.amount         =   '* Price to be discussed *';
                                                             }
-
-                                                            this.amount             =   selected.data('amount').toDollar();
 
                                                         },
                         show_specify                :   function(e)
@@ -260,7 +286,9 @@ export default
                         onclick                     :   function(e)
                                                         {
                                                             e.preventDefault();
-                                                            this.is_loading         =   true;
+                                                            if (!this.is_loading) {
+                                                                this.is_loading     =   true;
+                                                            }
                                                         },
                         submit                      :   function(e)
                                                         {
@@ -271,18 +299,18 @@ export default
                                                             let data                =   new FormData(this.$el),
                                                                 me                  =   this;
 
-                                                            if ($(this.$el).find('input[name="passport_bio"]').val().length == 0) {
+                                                            if ($(this.$el).find('input[name="passport_bio"]')[0].files.length == 0) {
                                                                 data.delete('passport_bio');
                                                             }
 
-                                                            if ($(this.$el).find('input[name="visa_label"]').val().length == 0) {
+                                                            if ($(this.$el).find('input[name="visa_label"]')[0].files.length == 0) {
                                                                 data.delete('visa_label');
                                                             }
 
                                                             axios.post(this.endpoint, data).then(function(response)
                                                             {
                                                                 me.is_loading       =   false;
-                                                                me.has_sent         =   true;
+                                                                me.ref              =   response.data.reference;
                                                             });
                                                         }
                     },

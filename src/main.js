@@ -158,10 +158,3 @@ $(window).scroll(function(e)
         t.is_visible();
     });
 }).scroll();
-
-document.ontouchmove                =   function(e)
-                                        {
-                                            if (global.disable_scroll) {
-                                                e.preventDefault();
-                                            }
-                                        };

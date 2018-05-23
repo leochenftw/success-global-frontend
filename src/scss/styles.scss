@@ -24,6 +24,7 @@
         'blocks/team/team',
         'blocks/testimonial/testimonial',
         'blocks/contact/contact',
+        'blocks/modal/modal',
         'blocks/service/service',
         'blocks/forms/contact-form',
         'blocks/footer/footer',
@@ -61,6 +62,10 @@ html {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+
+    &-bold {
+        font-weight: bold;
     }
 }
 
