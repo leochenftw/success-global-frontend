@@ -20,6 +20,10 @@
 
         &__hero {
 
+            @include mobile {
+                height: auto;
+            }
+
             &__highlight {
                 color: $white;
                 &__icon {
@@ -49,7 +53,21 @@
                     &__container {
                         max-width: 1152px;
                         width: 100%;
+                        @include mobile {
+                            transform: none !important;
+                            position: static !important;
+                        }
                     }
+
+                    @include mobile {
+                        display: flex;
+                        flex-wrap: wrap;
+                    }
+                }
+
+                @include mobile {
+                    width: 50%;
+                    margin-bottom: 1rem;
                 }
             }
         }
@@ -104,6 +122,18 @@
         &__person {
             color: $eeri-black;
             font-weight: bold;
+        }
+    }
+
+    .avatar-col {
+        @include mobile {
+            display: none;
+        }
+    }
+
+    .text-col {
+        @include mobile {
+            width: 100% !important;
         }
     }
 

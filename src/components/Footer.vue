@@ -9,7 +9,7 @@
                     <div class="content">
                         <p>some slogan</p>
                     </div>
-                    <a href="#" class="button is-gold">Request Consultation</a>
+                    <a href="#" v-on:click="show_consultation" class="button is-gold">Request Consultation</a>
                 </div>
                 <div class="column">
                     <h2 class="title is-6 is-uppercase">
@@ -56,7 +56,7 @@
                     </h2>
                     <ul v-if="news">
                         <li v-for="item in news">
-                            <a class="columns footer_misc__news" :href="item.url">
+                            <a class="columns footer_misc__news is-mobile" :href="item.url">
                                 <div class="footer_misc__news__thumb column is-narrow">
                                     <img :src="[base_url + item.thumb]" width="50" height="50" />
                                 </div>
@@ -72,16 +72,16 @@
         </div>
         <div class="footer__closure container">
             <div class="columns">
-                <div class="column copyright-privacy-policy">
+                <div class="column copyright-social-links">
                     <a class="social-link" href="https://www.facebook.com/successglobalnewzealand" target="_blank">
                         <span class="icon"><i class="fab fa-facebook-f"></i></span>
                     </a>
                     <a class="social-link" href="https://twitter.com/SuccessGlobalNZ" target="_blank">
                         <span class="icon"><i class="fab fa-twitter"></i></span>
                     </a>
-                    {{get_year()}} © {{sitename}}.
+                    <span class="copyright">{{get_year()}} © {{sitename}}.</span>
                 </div>
-                <div class="column social-links has-text-right">
+                <div class="column recaptcha has-text-right">
                     protected by <a href="#">reCAPTCHA</a></a>
                 </div>
             </div>
@@ -109,21 +109,28 @@ export default
                     },
     components  :   {  },
     methods     :   {
-                        make_phone      :   function(number, protocol, params)
-                                            {
-                                                return protocol + number + (params ? ('?' + params) : '');
-                                            },
-                        get_year        :   function()
-                                            {
-                                                var d           =   new Date();
+                        show_consultation   :   function(e)
+                                                {
+                                                    e.preventDefault();
+                                                    global.consultation_form.show   =   true;
+                                                    global.disable_scroll           =   true;
+                                                    $('html').addClass('is-locked');
+                                                },
+                        make_phone          :   function(number, protocol, params)
+                                                {
+                                                    return protocol + number + (params ? ('?' + params) : '');
+                                                },
+                        get_year            :   function()
+                                                {
+                                                    var d           =   new Date();
 
-                                                return d.getFullYear();
-                                            },
-                        nzst            :   function(raw)
-                                            {
-                                                var d           =   new Date(raw);
-                                                return d.nzst();
-                                            }
+                                                    return d.getFullYear();
+                                                },
+                        nzst                :   function(raw)
+                                                {
+                                                    var d           =   new Date(raw);
+                                                    return d.nzst();
+                                                }
                     },
     computed    :   {},
     mounted     :   function()

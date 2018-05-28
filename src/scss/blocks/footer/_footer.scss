@@ -41,20 +41,45 @@
             padding-top: 2rem;
             border-top: 1px solid rgba($white, 0.1);
             .column {
-
-
-                &.copyright-privacy-policy {
-
-                }
-
-                &.social-links {
-                    em {
-                        color: $white;
-                        font-weight: 500;
+                &.copyright-social-links {
+                    .copyright {
+                        @include mobile {
+                            display: block;
+                            margin-top: 1rem;
+                        }
                     }
 
                     .social-link {
                         font-size: 16px;
+                        margin-right: 0.5rem;
+                        @include mobile {
+                            font-size: 32px;
+                            .icon {
+                                width: 3rem;
+                            }
+
+                            &:last-child {
+                                margin-right: 0;
+                            }
+                        }
+                    }
+
+                    @include mobile {
+                        text-align: center !important;
+                    }
+                }
+
+                &.recaptcha {
+                    a {
+                        color: $gold;
+                        &:hover,
+                        &:focus {
+                            color: $white;
+                        }
+                    }
+                    @include mobile {
+                        padding-top: 0;
+                        text-align: center !important;
                     }
                 }
             }

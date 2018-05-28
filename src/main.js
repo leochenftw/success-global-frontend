@@ -52,8 +52,8 @@ global.getdata              =   function(path, onDone, onFail)
 
                                             global.consultation_form.sessions.forEach(function(o)
                                             {
-                                                var d                   =   new Date(o.dt);
-                                                o.dt                    =   d.nzst(true);
+                                                var d                                   =   new Date(o.dt);
+                                                o.dt                                    =   d.nzst(true);
                                             });
 
                                             if (onDone) {
