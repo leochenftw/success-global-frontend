@@ -49,6 +49,12 @@ html {
         .modal {
             z-index: 1000;
         }
+
+        &:not(.home) {
+            #app {
+                padding-top: 70px;
+            }
+        }
     }
 }
 

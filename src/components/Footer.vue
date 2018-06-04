@@ -4,7 +4,7 @@
             <div class="columns">
                 <div class="column">
                     <h2 class="title is-6 is-uppercase">
-                        <img src="../assets/logo.png" alt="Sucess Global" width="88" height="50">
+                        <img src="../assets/logo-white.png" alt="Sucess Global" width="88" height="50">
                     </h2>
                     <div class="content">
                         <p>some slogan</p>

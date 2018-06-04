@@ -26,6 +26,7 @@
         }
 
         .title {
+            white-space: nowrap;
             .icon {
                 transform: translateY(2px);
                 color: $max-yellow-red;

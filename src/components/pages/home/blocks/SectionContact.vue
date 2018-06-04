@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import Branch from './Branch';
-import ContactForm from './forms/ContactForm';
+import Branch from '../elements/Branch';
+import ContactForm from '@/components/forms/ContactForm';
 export default
 {
     name        :   'SectionContact',

@@ -44,12 +44,12 @@
 </template>
 
 <script>
-import CarouselItem from './CarouselItem';
-import SectionService from './SectionService';
-import SectionAbout from './SectionAbout';
-import SectionTestimonials from './SectionTestimonials';
-import SectionTeam from './SectionTeam';
-import SectionContact from './SectionContact';
+import CarouselItem from './elements/CarouselItem';
+import SectionService from './blocks/SectionService';
+import SectionAbout from './blocks/SectionAbout';
+import SectionTestimonials from './blocks/SectionTestimonials';
+import SectionTeam from './blocks/SectionTeam';
+import SectionContact from './blocks/SectionContact';
 import 'owl.carousel';
 export default
 {
@@ -76,7 +76,7 @@ export default
                     },
     mounted     :   function()
                     {
-                        var me                                  =   this;
+                        let me                                  =   this;
                         global.getdata(
                             me.$route.path,
                             function(data)

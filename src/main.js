@@ -5,10 +5,9 @@ import App from './App';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import router from './router';
-import TeamMemberModal from './components/TeamMemberModal';
+import TeamMemberModal from './components/modals/TeamMemberModal';
 import ConsultationForm from './components/forms/ConsultationForm';
 import LoadingOverlay from './components/LoadingOverlay';
-// import $ from 'jquery';
 import axios from 'axios';
 require('lightbox2');
 require('jquery-visible');
@@ -39,7 +38,15 @@ global.getdata              =   function(path, onDone, onFail)
                                     axios.get(global.base_url + path)
                                         .then(function (response)
                                         {
-                                            global.header.navigation                    =   response.data.navigation;
+                                            if (onDone) {
+                                                onDone(response.data);
+                                            }
+
+                                            global.header.navigation                    =   response.data.navigation.map(function(o)
+                                            {
+                                                o.url                                   =   '/#' + o.url;
+                                                return o;
+                                            });
                                             global.main.title                           =   response.data.title;
                                             global.main.hero                            =   response.data.hero;
                                             global.main.hero_text                       =   response.data.hero_text;
@@ -52,13 +59,9 @@ global.getdata              =   function(path, onDone, onFail)
 
                                             global.consultation_form.sessions.forEach(function(o)
                                             {
-                                                var d                                   =   new Date(o.dt);
+                                                let d                                   =   new Date(o.dt);
                                                 o.dt                                    =   d.nzst(true);
                                             });
-
-                                            if (onDone) {
-                                                onDone(response.data);
-                                            }
                                         })
                                         .catch(function (error)
                                         {
@@ -67,8 +70,29 @@ global.getdata              =   function(path, onDone, onFail)
                                             }
                                         }).then(function (data)
                                         {
-                                            var body_class              =   path == '/' ? 'home' : path;
+                                            let get_last_segment        =   function(path)
+                                                                            {
+                                                                                let sg      =   path.split('/'),
+                                                                                    classes =   '';
+
+                                                                                sg.forEach(function(o)
+                                                                                {
+                                                                                    if (o.trim().length > 0) {
+                                                                                        classes += o.trim() + ' ';
+                                                                                    }
+                                                                                });
+
+                                                                                return 'section-' + classes.trim();
+                                                                            },
+                                                body_class              =   path == '/' ? 'home' : get_last_segment(path);
                                             $('body').removeAttr('class').addClass(body_class);
+
+                                            if (body_class == 'home') {
+                                                global.header.is_home   =   true;
+                                            } else {
+                                                global.header.is_home   =   false;
+                                            }
+
                                             setTimeout(function()
                                             {
                                                 global.overlay.fade     =   true;

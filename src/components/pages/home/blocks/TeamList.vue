@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import TeamMemberTile from './TeamMemberTile';
+import TeamMemberTile from '../elements/TeamMemberTile';
 export default
 {
     name        :   'TeamList',

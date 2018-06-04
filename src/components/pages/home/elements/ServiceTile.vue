@@ -1,9 +1,8 @@
 <template>
-    <div class="column is-4">
+    <div class="column is-half">
         <a class="service-tile is-block is-relative" :href="link.url" :style="get_bg()">
             <div class="service-tile__overlay">
-                <h3 class="title is-6">{{title}}</h3>
-                <p class="content" v-html="content"></p>
+                <h3 class="title is-4 has-text-centered is-absolute-centered">{{title}}</h3>
             </div>
         </a>
     </div>
@@ -30,7 +29,7 @@ export default
     methods     :   {
                         get_bg  :   function()
                                     {
-                                        return 'padding-top: 100%; background-image: url(' + this.background + ');';
+                                        return 'padding-top: 56.25%; background-image: url(' + this.background + ');';
                                     }
                     },
     mounted     :   function()

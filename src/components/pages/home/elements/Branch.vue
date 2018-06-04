@@ -29,8 +29,8 @@
 </template>
 
 <script>
-require('../plugins/utilities');
-require('../plugins/gmap');
+require('@/plugins/utilities');
+require('@/plugins/gmap');
 export default
 {
     name        :   'Branch',

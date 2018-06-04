@@ -2,7 +2,7 @@
     <div :class="['column', 'is-' + this.column_size]">
         <a v-on:click="pop_modal" class="is-block team-member is-relative" :style="get_bg()">
             <div class="team-member__name-role">
-                <p class="title is-3">{{title}} <span class="icon"><i class="fas fa-angle-right"></i></span></p>
+                <p class="title is-4">{{title}} <span class="icon"><i class="fas fa-angle-right"></i></span></p>
                 <p class="subtitle">{{role}}</p>
             </div>
         </a>

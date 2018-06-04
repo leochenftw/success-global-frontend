@@ -40,7 +40,7 @@ import {
     jarallaxElement,
     jarallaxVideo
 } from 'jarallax';
-import Testimonial from './Testimonial';
+import Testimonial from '../elements/Testimonial';
 export default
 {
     name        :   'SectionTestimonials',

@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import ServiceTile from './ServiceTile';
+import ServiceTile from '../elements/ServiceTile';
 export default
 {
     name        :   'SectionService',

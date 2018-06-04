@@ -5,10 +5,13 @@
 }
 
 &-item {
-    a:not(.button) {
-        color: $eeri-black;
-        &:hover {
-            color: $max-yellow-red;
+    a {
+        transition: all ease-out 0.3s;
+        &:not(.button) {
+            color: $eeri-black;
+            &:hover {
+                color: $max-yellow-red;
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '@/components/Home'
+import Home from '@/components/pages/home/Home'
+import GeneralPage from '@/components/pages/GeneralPage'
 
 Vue.use(Router)
 
@@ -13,9 +14,9 @@ export default new Router(
                     component   :   Home
                 },
                 {
-                    path        :   '/about-us',
-                    name        :   'About us',
-                    component   :   Home
+                    path        :   '/:second/:third',
+                    name        :   'General Page Layout',
+                    component   :   GeneralPage
                 }
             ]
 });
