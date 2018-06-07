@@ -3,19 +3,6 @@
         <div id="carousel" class="owl-carousel owl-theme">
             <CarouselItem :key="i" v-for="(item, i) in carousel" :bg="item.background" :title="item.title" :content="item.content" :link="item.link" />
         </div>
-        <SectionService
-            v-if="section_services"
-            :services="section_services"
-        />
-        <SectionAbout
-            v-if="section_about"
-            :title="section_about.title"
-            :hero="section_about.hero"
-            :intro="section_about.intro"
-            :image="section_about.image"
-            :left_col="section_about.left_col"
-            :right_col="section_about.right_col"
-        />
         <SectionTestimonials
             v-if="section_testimonials"
             :title="section_testimonials.title"
@@ -25,12 +12,29 @@
             :testimonials="section_testimonials.testimonials"
             :highlights="section_testimonials.highlights"
         />
+        <SectionAbout
+            v-if="section_about"
+            :title="section_about.title"
+            :hero="section_about.hero"
+            :intro="section_about.intro"
+            :image="section_about.image"
+            :left_col="section_about.left_col"
+            :right_col="section_about.right_col"
+            :highlights="section_testimonials.highlights"
+        />
         <SectionTeam
             v-if="section_team"
             :title="section_team.title"
             :hero="section_team.hero"
             :content="section_team.content"
             :branches="section_team.branches"
+        />
+        <SectionService
+            v-if="section_services"
+            :title="section_services.title"
+            :content="section_services.content"
+            :hero="section_services.hero"
+            :services="section_services.services"
         />
         <SectionContact
             v-if="section_contact"
@@ -92,15 +96,19 @@ export default
                                 });
 
                                 me.section_services             =   data.services;
-                                me.section_services.forEach(function(o)
+                                me.section_services.services.forEach(function(o)
                                 {
                                     if (o.background) {
                                         o.background            =   base_url + o.background;
                                         if (o.link && o.link.url) {
-                                            o.link.url          =   '/#' + o.link.url;
+                                            o.link.url          =   (process.env.NODE_ENV == 'development' ? '/#' : '/!/#') + o.link.url;
                                         }
                                     }
                                 });
+
+                                if (me.section_services.hero) {
+                                    me.section_services.hero    =   base_url + me.section_services.hero;
+                                }
 
                                 me.section_about                =   data.about_us;
                                 if (me.section_about.hero) {

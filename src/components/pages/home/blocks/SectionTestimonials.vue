@@ -1,6 +1,6 @@
 <template>
     <section id="section-testimonials" class="testimonials jarallax-section">
-        <div class="testimonials__hero jarallax">
+        <!-- <div class="testimonials__hero jarallax">
             <img class="jarallax-img" :src="hero" alt="">
             <div class="is-absolute-centered testimonials__hero__highlights__container container">
                 <div class="columns is-relative testimonials__hero__highlights">
@@ -11,7 +11,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="container">
             <h2 :class="['title', 'is-1', 'has-text-centered', 'is-uppercase', {'is-contentless': !content}]">{{title}}</h2>
             <div class="has-text-centered content" v-if="content" v-html="content"></div>

@@ -1,7 +1,10 @@
 <template>
-    <section id="section-service" class="service-tiles section">
+    <section id="section-service" class="section-service service-tiles jarallax-section">
+        <div class="section-service__hero jarallax">
+            <img class="jarallax-img" :src="hero" alt="">
+            <h2 class="title is-1 is-absolute-centered">{{title}}</h2>
+        </div>
         <div class="container">
-            <h2 class="is-hidden">Our services</h2>
             <div class="columns is-multiline">
                 <ServiceTile
                     v-for="(item, i) in services"
@@ -22,6 +25,9 @@ export default
 {
     name        :   'SectionService',
     props       :   [
+                        'title',
+                        'hero',
+                        'content',
                         'services'
                     ],
     data        :   function()
