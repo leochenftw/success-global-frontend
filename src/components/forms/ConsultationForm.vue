@@ -111,7 +111,6 @@
                             <select name="appointment_date_time" v-on:change="appointment_time_change">
                                 <option value="-1">- Pick a session -</option>
                                 <option v-for="session in sessions" :data-amount="session.amount" :value="session.id">{{session.dt}}, {{session.duration}} minutes , ${{session.amount}}</option>
-                                <option value="0">Arrange for me</option>
                             </select>
                         </div>
                     </div>

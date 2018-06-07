@@ -76,7 +76,7 @@ export default
                                                 {
                                                     if ($('body').hasClass('home')) {
                                                         e.preventDefault();
-                                                        $.scrollTo(to, 500, {axis: 'y', offset: -70});
+                                                        $.scrollTo(to, 500, {axis: 'y', offset: -69});
                                                         this.mobile_menu_is_active  =   false;
                                                     }
                                                 },
