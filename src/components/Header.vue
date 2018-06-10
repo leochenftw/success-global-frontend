@@ -69,6 +69,7 @@ export default
                                                 {
                                                     e.preventDefault();
                                                     global.consultation_form.show   =   true;
+                                                    global.consultation_form.get_sessions();
                                                     global.disable_scroll           =   true;
                                                     $('html').addClass('is-locked');
                                                 },

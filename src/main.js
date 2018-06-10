@@ -55,13 +55,6 @@ global.getdata              =   function(path, onDone, onFail)
                                             global.footer.news                          =   response.data.news;
                                             global.consultation_form.csrf               =   response.data.csrf;
                                             global.consultation_form.visa_categories    =   response.data.visa_categories;
-                                            global.consultation_form.sessions           =   response.data.consul_slots;
-
-                                            global.consultation_form.sessions.forEach(function(o)
-                                            {
-                                                let d                                   =   new Date(o.dt);
-                                                o.dt                                    =   d.nzst(true);
-                                            });
                                         })
                                         .catch(function (error)
                                         {

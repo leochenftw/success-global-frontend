@@ -1,7 +1,21 @@
 <template>
     <div id="content-area">
-        <div id="carousel" class="owl-carousel owl-theme">
-            <CarouselItem :key="i" v-for="(item, i) in carousel" :bg="item.background" :title="item.title" :content="item.content" :link="item.link" />
+        <div id="carousel-wrapper">
+            <div id="carousel" class="owl-carousel owl-theme">
+                <CarouselItem
+                    v-for="(item, i) in carousel"
+                    :key="i"
+                    :bg="item.background"
+                    :title="item.title"
+                    :content="item.content"
+                    :link="item.link"
+                    :bg_only="true"
+                />
+            </div>
+
+            <LandingForm
+                :title="slogan"
+            />
         </div>
         <SectionTestimonials
             v-if="section_testimonials"
@@ -54,6 +68,7 @@ import SectionAbout from './blocks/SectionAbout';
 import SectionTestimonials from './blocks/SectionTestimonials';
 import SectionTeam from './blocks/SectionTeam';
 import SectionContact from './blocks/SectionContact';
+import LandingForm from '@/components/forms/LandingForm';
 import 'owl.carousel';
 export default
 {
@@ -61,6 +76,7 @@ export default
     data        :   function()
                     {
                         return  {
+                                    slogan                      :   '',
                                     carousel                    :   [],
                                     section_services            :   null,
                                     section_about               :   null,
@@ -76,7 +92,8 @@ export default
                         SectionAbout,
                         SectionTestimonials,
                         SectionTeam,
-                        SectionContact
+                        SectionContact,
+                        LandingForm
                     },
     mounted     :   function()
                     {
@@ -86,6 +103,7 @@ export default
                             function(data)
                             {
                                 me.csrf                         =   data.csrf;
+                                me.slogan                       =   data.slogan;
                                 me.carousel                     =   data.carousel;
                                 me.carousel.forEach(function(o)
                                 {

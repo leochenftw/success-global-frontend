@@ -14,16 +14,16 @@
                 <div class="columns field">
                     <div class="column">
                         <label class="label"><span class="color-is-red">*</span> First name</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" name="first_name" placeholder="e.g John">
+                        <div class="control has-icons-left">
+                            <input v-model="first_name" class="input" type="text" name="first_name" placeholder="e.g John">
                             <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
                         </div>
-                        <p class="help" v-if="errors.fullname">This is a help text</p>
+                        <p class="help" v-if="errors.first_name">This is a help text</p>
                     </div>
                     <div class="column">
                         <label class="label"><span class="color-is-red">*</span> Surname</label>
-                        <div class="control has-icons-left has-icons-right">
-                            <input class="input" type="text" name="surname" placeholder="e.g Doe">
+                        <div class="control has-icons-left">
+                            <input v-model="surname" class="input" type="text" name="surname" placeholder="e.g Doe">
                             <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
                         </div>
                         <p class="help" v-if="errors.surname">This is a help text</p>
@@ -32,8 +32,8 @@
 
                 <div class="field">
                     <label class="label"><span class="color-is-red">*</span> Contact Number</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="text" name="contact_number" placeholder="e.g 021 xxx xxxxx">
+                    <div class="control has-icons-left">
+                        <input v-model="phone" class="input" type="text" name="contact_number" placeholder="e.g 021 xxx xxxxx">
                         <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
                     </div>
                     <p class="help" v-if="errors.contact">This is a help text</p>
@@ -41,8 +41,8 @@
 
                 <div class="field">
                     <label class="label"><span class="color-is-red">*</span> Email</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input class="input" type="email" name="email" placeholder="e.g. john_doe@gmail.com">
+                    <div class="control has-icons-left">
+                        <input v-model="email" class="input" type="email" name="email" placeholder="e.g. john_doe@gmail.com">
                         <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
                     </div>
                     <p class="help" v-if="errors.email">This is a help text</p>
@@ -206,10 +206,15 @@ export default
                     {
                         return  {
                                     ref             :   null,
+                                    pay_link        :   null,
                                     show            :   false,
                                     endpoint        :   global.base_url + '/api/form/book-consultation',
                                     is_loading      :   false,
                                     csrf            :   null,
+                                    first_name      :   '',
+                                    surname         :   '',
+                                    phone           :   '',
+                                    email           :   '',
                                     sessions        :   [],
                                     pass_fn         :   'Please choose to upload your copy',
                                     visa_fn         :   'Please choose to upload your copy',
@@ -220,7 +225,7 @@ export default
                                                         },
                                     date_help       :   'We only display the next 10 coming up sessions. If none of the available sessions suits your schedule, please choose "Arrange for me"',
                                     errors          :   {
-                                                            fullname        :   false,
+                                                            first_name        :   false,
                                                             surname         :   false,
                                                             contact         :   false,
                                                             email           :   false,
@@ -232,8 +237,21 @@ export default
                                     visa_categories :   null
                                 };
                     },
-    components  :   {  },
+    components  :   {},
     methods     :   {
+                        get_sessions                :   function()
+                                                        {
+                                                            let me                  =   this;
+                                                            axios.get(base_url + '/api/form/book-consultation')
+                                                            .then((response) => {
+                                                                me.sessions         =   response.data;
+                                                                me.sessions.forEach(function(o)
+                                                                {
+                                                                    let d           =   new Date(o.dt);
+                                                                    o.dt            =   d.nzst(true);
+                                                                });
+                                                            });
+                                                        },
                         on_file_change              :   function(e)
                                                         {
                                                             if (e.target.files.length > 0) {
@@ -305,7 +323,8 @@ export default
                                                                 }
                                                             });
 
-                                                            axios.post(this.endpoint, data).then(function(response)
+                                                            axios.post(this.endpoint, data)
+                                                            .then(function(response)
                                                             {
                                                                 me.is_loading       =   false;
                                                                 me.ref              =   response.data.reference;

@@ -10,11 +10,33 @@
         }
     }
 
+    &-dot {
+        &s {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            left: 0;
+            z-index: 2;
+            text-align: center;
+            font-size: 0;
+            padding: 1rem 0;
+        }
+
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        margin: 0 0.5rem;
+        background-color: rgba($white, 0.6) !important;
+        &.active {
+            background-color: rgba($white, 1) !important;
+        }
+    }
+
     &-item {
         transition: all .3s;
         padding-top: 70px;
         opacity: 0;
-        height: 80vh;
+        height: 100vh;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -50,6 +72,30 @@
             .control {
 
             }
+        }
+    }
+}
+
+#carousel-wrapper {
+    position: relative;
+    .landing-form {
+        z-index: 2;
+        position: absolute;
+        top: 50%;
+        width: 60%;
+        max-width: 768px;
+        transform: translateY(-50%);
+        padding: 0 2rem;
+        right: 0;
+        .title {
+            font-weight: bold;
+            text-shadow: 0 2px 5px rgba($black, 0.9);
+        }
+        .fields {
+            label {
+                color: $white;
+            }
+            margin-bottom: 2rem;
         }
     }
 }
