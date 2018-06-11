@@ -82,6 +82,7 @@ export default
 
                         if (!global.recaptcha_placed) {
                             $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
+                            global.recaptcha_placed =   true;
                         }
                     },
     updated     :   function()

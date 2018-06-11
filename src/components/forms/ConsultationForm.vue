@@ -1,5 +1,5 @@
 <template>
-    <form v-if="!ref" :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
+    <form v-if="!ref && sessions && !paid" :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
         <div class="modal-background" v-on:click="close"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -166,7 +166,14 @@
                 </span>
                 <div class="modal-card-foot__buttons">
                     <button
+                        v-if="!is_dev"
                         v-on:click="onclick"
+                        :class="['button', 'is-gold', {'is-loading': is_loading}]">
+                        Submit
+                    </button>
+                    <button
+                        v-else
+                        v-on:click="submit"
                         :class="['button', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
                         data-sitekey="6Lc8BlgUAAAAACwpqCYajCkQEihsnSui-vcVtgW_"
                         data-callback="fire_consultation">
@@ -177,7 +184,7 @@
             </footer>
         </div>
     </form>
-    <div v-else :class="['modal', {'is-active': show}]">
+    <div v-else-if="sessions && ref && paid" :class="['modal', {'is-active': show}]">
         <div class="modal-background" v-on:click="close"></div>
         <div class="modal-card">
             <header class="modal-card-head has-text-centered">
@@ -189,6 +196,40 @@
             </section>
             <footer class="modal-card-foot has-text-centered">
                 <button v-on:click="close" class="button">Close</button>
+            </footer>
+        </div>
+    </div>
+    <div v-else-if="ref && sessions && !paid" :class="['modal', {'is-active': show}]">
+        <div class="modal-background" v-on:click="close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title is-uppercase"><template v-if="pay_link">Payment</template><template v-else>Retrieving information</template></p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <template v-if="pay_link">
+                <p class="title is-1 is-bold">{{amount}}</p>
+                <p class="subtitle is-7">You are going to be redirected to the payment page.</p>
+                </template>
+                <template v-else>
+                    <p>Just a moment...</p>
+                </template>
+            </section>
+            <footer class="modal-card-foot has-text-centered">
+                <button v-on:click="pay" :class="['button', {'is-gold': pay_link}, {'is-loading': !pay_link}]">Pay</button>
+            </footer>
+        </div>
+    </div>
+    <div v-else :class="['modal', {'is-active': show}]">
+        <div class="modal-background" v-on:click="close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title is-uppercase">Checking our schedule</p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <p>Just a moment...</p>
+            </section>
+            <footer class="modal-card-foot has-text-centered">
+                <button class="button is-loading">Close</button>
             </footer>
         </div>
     </div>
@@ -210,12 +251,14 @@ export default
                                     show            :   false,
                                     endpoint        :   global.base_url + '/api/form/book-consultation',
                                     is_loading      :   false,
+                                    is_dev          :   process.env.NODE_ENV == 'development',
+                                    paid            :   false,
                                     csrf            :   null,
                                     first_name      :   '',
                                     surname         :   '',
                                     phone           :   '',
                                     email           :   '',
-                                    sessions        :   [],
+                                    sessions        :   null,
                                     pass_fn         :   'Please choose to upload your copy',
                                     visa_fn         :   'Please choose to upload your copy',
                                     amount          :   '$0.00',
@@ -225,7 +268,7 @@ export default
                                                         },
                                     date_help       :   'We only display the next 10 coming up sessions. If none of the available sessions suits your schedule, please choose "Arrange for me"',
                                     errors          :   {
-                                                            first_name        :   false,
+                                                            first_name      :   false,
                                                             surname         :   false,
                                                             contact         :   false,
                                                             email           :   false,
@@ -239,9 +282,26 @@ export default
                     },
     components  :   {},
     methods     :   {
+                        read_ref                    :   function()
+                                                        {
+                                                            let ref         =   window.localStorage ? window.localStorage.booking_ref : null;
+
+                                                            if (ref) {
+                                                                this.ref    =   ref;
+                                                            }
+
+                                                            console.log(ref);
+                                                        },
+                        save_ref                    :   function()
+                                                        {
+                                                            if (window.localStorage) {
+                                                                window.localStorage.booking_ref =   this.ref;
+                                                            }
+                                                        },
                         get_sessions                :   function()
                                                         {
                                                             let me                  =   this;
+                                                            this.sessions           =   null;
                                                             axios.get(base_url + '/api/form/book-consultation')
                                                             .then((response) => {
                                                                 me.sessions         =   response.data;
@@ -328,15 +388,22 @@ export default
                                                             {
                                                                 me.is_loading       =   false;
                                                                 me.ref              =   response.data.reference;
+                                                                me.save_ref();
                                                             });
-                                                        }
+                                                        },
+                        pay                         :   function(e)
+                                                        {
+                                                            e.preventDefault();
+                                                        },
                     },
     mounted     :   function()
                     {
                         global.fire_consultation    =   this.submit;
                         if (!global.recaptcha_placed) {
                             $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
+                            global.recaptcha_placed =   true;
                         }
+                        this.read_ref();
                     },
     updated     :   function()
                     {
