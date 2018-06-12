@@ -1,5 +1,56 @@
 <template>
-    <form v-if="!ref && sessions && !paid" :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
+    <div v-if="expired" :class="['modal', {'is-active': show}]">
+        <div class="modal-background" v-on:click="close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title is-uppercase">Booking expired</p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <p>Sorry, it seems your last booking has expired. Please click the <strong>OK</strong> button to re-apply.</p><p><br />Thanks!</p>
+            </section>
+            <footer class="modal-card-foot has-text-centered">
+                <button v-on:click="reset" class="button is-medium is-gold">OK</button>
+            </footer>
+        </div>
+    </div>
+    <div v-else-if="ref && paid" :class="['modal', {'is-active': show}]">
+        <div class="modal-background" v-on:click="close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title is-uppercase">Your Booking Reference</p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <p class="title is-1 is-bold">{{ref}}</p>
+                <p class="subtitle is-7">The <strong>reference number</strong> has been emailed to you too.<br />Please check your inbox.</p>
+            </section>
+            <footer class="modal-card-foot has-text-centered">
+                <button v-on:click="reset" class="button is-medium is-gold">Book another</button>
+                <button v-on:click="close" class="button is-medium">Close</button>
+            </footer>
+        </div>
+    </div>
+    <div v-else-if="ref && !paid" :class="['modal', {'is-active': show}]">
+        <div class="modal-background" v-on:click="close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title is-uppercase"><template v-if="pay_link">Payment</template><template v-else>Retrieving details</template></p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <template v-if="pay_link">
+                <p class="subtitle is-5">REF: <a href="#" class="colour-is-gold">{{ref}}</a></p>
+                <p class="title is-1 is-bold">{{amount}}</p>
+                <p class="subtitle is-7">You will be taken to the payment page after clicking the <strong class="colour-is-gold">Pay</strong> button</p>
+                </template>
+                <template v-else>
+                    <p>Just a moment...</p>
+                </template>
+            </section>
+            <footer class="modal-card-foot has-text-centered">
+                <button v-on:click="pay" :class="['button is-medium', {'is-gold': pay_link}, {'is-loading': !pay_link}]">Pay</button>
+            </footer>
+        </div>
+    </div>
+    <form v-else-if="!ref && sessions && !paid" :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
         <div class="modal-background" v-on:click="close"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -168,18 +219,18 @@
                     <button
                         v-if="!is_dev"
                         v-on:click="onclick"
-                        :class="['button', 'is-gold', {'is-loading': is_loading}]">
+                        :class="['button is-medium', 'is-gold', {'is-loading': is_loading}]">
                         Submit
                     </button>
                     <button
                         v-else
                         v-on:click="submit"
-                        :class="['button', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
+                        :class="['button is-medium', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
                         data-sitekey="6Lc8BlgUAAAAACwpqCYajCkQEihsnSui-vcVtgW_"
                         data-callback="fire_consultation">
                         Submit
                     </button>
-                    <button v-on:click="close" class="button">Cancel</button>
+                    <button v-on:click="close" class="button is-medium">Cancel</button>
                 </div>
             </footer>
         </div>
@@ -195,27 +246,7 @@
                 <p class="subtitle is-7">The <strong>reference number</strong> has been emailed to you too.<br />Please check your inbox.</p>
             </section>
             <footer class="modal-card-foot has-text-centered">
-                <button v-on:click="close" class="button">Close</button>
-            </footer>
-        </div>
-    </div>
-    <div v-else-if="ref && sessions && !paid" :class="['modal', {'is-active': show}]">
-        <div class="modal-background" v-on:click="close"></div>
-        <div class="modal-card">
-            <header class="modal-card-head has-text-centered">
-                <p class="modal-card-title is-uppercase"><template v-if="pay_link">Payment</template><template v-else>Retrieving information</template></p>
-            </header>
-            <section class="modal-card-body has-text-centered">
-                <template v-if="pay_link">
-                <p class="title is-1 is-bold">{{amount}}</p>
-                <p class="subtitle is-7">You are going to be redirected to the payment page.</p>
-                </template>
-                <template v-else>
-                    <p>Just a moment...</p>
-                </template>
-            </section>
-            <footer class="modal-card-foot has-text-centered">
-                <button v-on:click="pay" :class="['button', {'is-gold': pay_link}, {'is-loading': !pay_link}]">Pay</button>
+                <button v-on:click="close" class="button is-medium">Close</button>
             </footer>
         </div>
     </div>
@@ -248,6 +279,9 @@ export default
                         return  {
                                     ref             :   null,
                                     pay_link        :   null,
+                                    expires_at      :   null,
+                                    expiring_in     :   null,
+                                    expired         :   false,
                                     show            :   false,
                                     endpoint        :   global.base_url + '/api/form/book-consultation',
                                     is_loading      :   false,
@@ -281,16 +315,75 @@ export default
                                 };
                     },
     components  :   {},
+    watch       :   {
+                        show                        :   function(newVal, oldVal)
+                                                        {
+                                                            if (this.show && this.ref && !this.pay_link) {
+                                                                this.retrieve_booking();
+                                                            }
+                                                        }
+                    },
     methods     :   {
+                        reset                       :   function(e)
+                                                        {
+                                                            e.preventDefault();
+                                                            this.ref            =   null;
+                                                            this.pay_link       =   null;
+                                                            this.expires_at     =   null;
+                                                            this.expiring_in    =   null;
+                                                            this.expired        =   false;
+                                                            this.is_loading     =   false;
+                                                            this.paid           =   false;
+                                                            this.get_sessions();
+                                                        },
+                        expirechk                   :   function()
+                                                        {
+                                                            if (this.expires_at) {
+                                                                this.expiring_in    =   0.001 * (this.expires_at - Date.now());
+                                                                if (this.expiring_in <= 0) {
+                                                                    this.expiry_handler();
+                                                                }
+                                                            }
+                                                        },
                         read_ref                    :   function()
                                                         {
-                                                            let ref         =   window.localStorage ? window.localStorage.booking_ref : null;
-
+                                                            let ref                 =   window.localStorage ? window.localStorage.booking_ref : null;
                                                             if (ref) {
-                                                                this.ref    =   ref;
+                                                                this.ref            =   ref;
+                                                            }
+                                                        },
+                        retrieve_booking            :   function()
+                                                        {
+                                                            let me                  =   this;
+                                                            if (this.ref) {
+                                                                axios.get(base_url + '/api/booking/' + this.ref)
+                                                                .then(function(response)
+                                                                {
+                                                                    if (response.data) {
+                                                                        me.pay_link     =   response.data.pay_link;
+                                                                        me.amount       =   response.data.amount.toDollar();
+                                                                        me.expires_at   =   response.data.expires_at.toDate();
+                                                                        me.paid         =   response.data.paid;
+                                                                        if (!me.paid) {
+                                                                            me.expirechk();
+                                                                        }
+                                                                    } else {
+                                                                        me.expiry_handler();
+                                                                    }
+                                                                });
+                                                            }
+                                                        },
+                        expiry_handler              :   function()
+                                                        {
+                                                            let me                      =   this;
+                                                            me.expired                  =   true;
+                                                            if (window.localStorage) {
+                                                                delete window.localStorage.booking_ref;
                                                             }
 
-                                                            console.log(ref);
+                                                            me.ref                      =   null;
+                                                            me.pay_link                 =   null;
+                                                            me.expires_at               =   null;
                                                         },
                         save_ref                    :   function()
                                                         {
@@ -300,15 +393,15 @@ export default
                                                         },
                         get_sessions                :   function()
                                                         {
-                                                            let me                  =   this;
-                                                            this.sessions           =   null;
+                                                            let me                      =   this;
+                                                            this.sessions               =   null;
                                                             axios.get(base_url + '/api/form/book-consultation')
                                                             .then((response) => {
-                                                                me.sessions         =   response.data;
+                                                                me.sessions             =   response.data;
                                                                 me.sessions.forEach(function(o)
                                                                 {
-                                                                    let d           =   new Date(o.dt);
-                                                                    o.dt            =   d.nzst(true);
+                                                                    let d               =   new Date(o.dt);
+                                                                    o.dt                =   d.nzst(true);
                                                                 });
                                                             });
                                                         },
@@ -373,6 +466,10 @@ export default
                                                                 e.preventDefault();
                                                             }
 
+                                                            if (!this.is_loading) {
+                                                                this.is_loading     =   true;
+                                                            }
+
                                                             let data                =   new FormData(this.$el),
                                                                 me                  =   this;
 
@@ -388,12 +485,16 @@ export default
                                                             {
                                                                 me.is_loading       =   false;
                                                                 me.ref              =   response.data.reference;
+                                                                me.pay_link         =   response.data.pay_link;
+                                                                me.expires_at       =   response.data.expires_at.toDate();
                                                                 me.save_ref();
+                                                                me.expirechk();
                                                             });
                                                         },
                         pay                         :   function(e)
                                                         {
                                                             e.preventDefault();
+                                                            window.location.replace(this.pay_link);
                                                         },
                     },
     mounted     :   function()
@@ -404,6 +505,10 @@ export default
                             global.recaptcha_placed =   true;
                         }
                         this.read_ref();
+
+                        if (global.show_form) {
+                            this.show               =   true;
+                        }
                     },
     updated     :   function()
                     {

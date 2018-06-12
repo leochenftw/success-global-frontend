@@ -95,6 +95,10 @@ export default
                         SectionContact,
                         LandingForm
                     },
+    created     :   function()
+                    {
+                        global.show_form                        =   this.$route.query.state ? true : false;
+                    },
     mounted     :   function()
                     {
                         let me                                  =   this;

@@ -121,7 +121,7 @@ Array.prototype.removeByValue = function()
     /*
      * anonymous functions
      * */
-var QueryString = function ()
+window.QueryString = function ()
 {
     if (window.location.search.length === 0) { return undefined; }
      var query_string = {};
@@ -302,3 +302,57 @@ Date.prototype.nzst             =   function(include_time, include_second)
 
     return d + (include_time ? t : '');
 };
+
+Number.prototype.toDate         =   function()
+{
+    if (!isNaN(this)) {
+        return new Date(this);
+    }
+
+    console.error('You cannot convert NaN!');
+    return this;
+}
+
+String.prototype.toDate         =   function()
+{
+    if (this.trim().length > 0) {
+        return new Date(parseFloat(this));
+    }
+
+    console.error('You cannot convert an empty string!');
+    return this;
+}
+
+String.prototype.toHHMMSS       =   function ()
+{
+    var sec_num     =   parseInt(this, 10), // don't forget the second param
+        is_minus    =   sec_num < -0;
+
+    sec_num         =   Math.abs(sec_num);
+
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return (is_minus ? '-' : '') + hours+':'+minutes+':'+seconds;
+}
+
+Number.prototype.toHHMMSS       =   function ()
+{
+    var sec_num     =   parseInt(this, 10), // don't forget the second param
+        is_minus    =   sec_num < -0;
+
+    sec_num         =   Math.abs(sec_num);
+
+    var hours   = Math.floor(sec_num / 3600);
+    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+    var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    return (is_minus ? '-' : '') + hours+':'+minutes+':'+seconds;
+}

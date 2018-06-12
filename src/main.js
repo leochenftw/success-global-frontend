@@ -18,8 +18,6 @@ axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 };
 
-// console.log(location);
-
 Vue.config.productionTip    =   false;
 global.axios                =   axios;
 global.header               =   null;
