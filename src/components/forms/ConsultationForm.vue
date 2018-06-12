@@ -216,15 +216,14 @@
                     {{amount}}
                 </span>
                 <div class="modal-card-foot__buttons">
-                    <button
+                    <!-- <button
                         v-if="!is_dev"
                         v-on:click="onclick"
                         :class="['button is-medium', 'is-gold', {'is-loading': is_loading}]">
                         Submit
-                    </button>
+                    </button> -->
                     <button
-                        v-else
-                        v-on:click="submit"
+                        v-on:click="onclick"
                         :class="['button is-medium', 'is-gold', 'g-recaptcha', {'is-loading': is_loading}]"
                         data-sitekey="6Lc8BlgUAAAAACwpqCYajCkQEihsnSui-vcVtgW_"
                         data-callback="fire_consultation">
@@ -318,8 +317,12 @@ export default
     watch       :   {
                         show                        :   function(newVal, oldVal)
                                                         {
-                                                            if (this.show && this.ref && !this.pay_link) {
-                                                                this.retrieve_booking();
+                                                            if (this.show) {
+                                                                this.get_sessions();
+                                                                $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
+                                                                if (this.ref && !this.pay_link) {
+                                                                    this.retrieve_booking();
+                                                                }
                                                             }
                                                         }
                     },
@@ -327,19 +330,19 @@ export default
                         reset                       :   function(e)
                                                         {
                                                             e.preventDefault();
-                                                            this.ref            =   null;
-                                                            this.pay_link       =   null;
-                                                            this.expires_at     =   null;
-                                                            this.expiring_in    =   null;
-                                                            this.expired        =   false;
-                                                            this.is_loading     =   false;
-                                                            this.paid           =   false;
+                                                            this.ref                    =   null;
+                                                            this.pay_link               =   null;
+                                                            this.expires_at             =   null;
+                                                            this.expiring_in            =   null;
+                                                            this.expired                =   false;
+                                                            this.is_loading             =   false;
+                                                            this.paid                   =   false;
                                                             this.get_sessions();
                                                         },
                         expirechk                   :   function()
                                                         {
                                                             if (this.expires_at) {
-                                                                this.expiring_in    =   0.001 * (this.expires_at - Date.now());
+                                                                this.expiring_in        =   0.001 * (this.expires_at - Date.now());
                                                                 if (this.expiring_in <= 0) {
                                                                     this.expiry_handler();
                                                                 }
@@ -347,14 +350,14 @@ export default
                                                         },
                         read_ref                    :   function()
                                                         {
-                                                            let ref                 =   window.localStorage ? window.localStorage.booking_ref : null;
+                                                            let ref                     =   window.localStorage ? window.localStorage.booking_ref : null;
                                                             if (ref) {
-                                                                this.ref            =   ref;
+                                                                this.ref                =   ref;
                                                             }
                                                         },
                         retrieve_booking            :   function()
                                                         {
-                                                            let me                  =   this;
+                                                            let me                      =   this;
                                                             if (this.ref) {
                                                                 axios.get(base_url + '/api/booking/' + this.ref)
                                                                 .then(function(response)
@@ -500,19 +503,18 @@ export default
     mounted     :   function()
                     {
                         global.fire_consultation    =   this.submit;
-                        if (!global.recaptcha_placed) {
-                            $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
-                            global.recaptcha_placed =   true;
-                        }
                         this.read_ref();
 
                         if (global.show_form) {
                             this.show               =   true;
+                            window.history.replaceState(window.history.state, null, this.is_dev ? "/#/" : '/!/#/');
                         }
                     },
     updated     :   function()
                     {
-
+                        if (!this.ref && this.sessions && !this.paid) {
+                            $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
+                        }
                     }
 }
 </script>

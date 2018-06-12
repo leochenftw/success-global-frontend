@@ -79,11 +79,7 @@ export default
     mounted     :   function()
                     {
                         global.fire_contactform     =   this.submit;
-
-                        if (!global.recaptcha_placed) {
-                            $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
-                            global.recaptcha_placed =   true;
-                        }
+                        $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
                     },
     updated     :   function()
                     {

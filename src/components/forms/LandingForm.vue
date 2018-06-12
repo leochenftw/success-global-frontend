@@ -65,7 +65,6 @@ export default
                                             global.consultation_form.phone      =   this.phone;
                                             global.consultation_form.email      =   this.email;
                                             global.consultation_form.show       =   true;
-                                            global.consultation_form.get_sessions();
                                         }
                     },
     // watch: {},
