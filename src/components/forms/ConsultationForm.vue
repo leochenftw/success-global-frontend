@@ -50,7 +50,24 @@
             </footer>
         </div>
     </div>
-    <form v-else-if="!ref && sessions && !paid" :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
+    <div v-else-if="!ref && sessions && sessions.length == 0 && !paid" :class="['modal', {'is-active': show}]">
+        <div class="modal-background" v-on:click="close"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-text-centered">
+                <p class="modal-card-title is-uppercase">No session available</p>
+            </header>
+            <section class="modal-card-body has-text-centered">
+                <div class="content">
+                    <p>Sorry, it seems that we do not have any available session at this stage.</p>
+                    <p>You can either check back later, or <a href="#" v-on:click="goto_contact">contact us</a> to discuss.</p>
+                </div>
+            </section>
+            <footer class="modal-card-foot has-text-centered">
+                <button v-on:click="close" class="button is-medium is-gold">OK</button>
+            </footer>
+        </div>
+    </div>
+    <form v-else-if="!ref && sessions && sessions.length > 0 && !paid" :class="['consultation-form modal', {'is-active': show}]" method="post" enctype="multipart/form-data">
         <div class="modal-background" v-on:click="close"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -327,6 +344,15 @@ export default
                                                         }
                     },
     methods     :   {
+                        goto_contact                :   function(e)
+                                                        {
+                                                            e.preventDefault();
+                                                            this.close();
+                                                            global.contact_form.first_name  =   this.first_name;
+                                                            global.contact_form.last_name   =   this.surname;
+                                                            global.contact_form.email       =   this.email;
+                                                            $('body').scrollTo($(global.contact_form.$el), 500, {axis: 'y', offset: -110});
+                                                        },
                         reset                       :   function(e)
                                                         {
                                                             e.preventDefault();
@@ -337,6 +363,7 @@ export default
                                                             this.expired                =   false;
                                                             this.is_loading             =   false;
                                                             this.paid                   =   false;
+                                                            delete window.localStorage.booking_ref;
                                                             this.get_sessions();
                                                         },
                         expirechk                   :   function()
@@ -451,7 +478,9 @@ export default
                                                         },
                         close                       :   function(e)
                                                         {
-                                                            e.preventDefault();
+                                                            if (e) {
+                                                                e.preventDefault();
+                                                            }
                                                             this.show               =   false;
                                                             $('html').removeClass('is-locked');
                                                             global.disable_scroll   =   false;

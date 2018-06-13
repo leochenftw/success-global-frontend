@@ -2,15 +2,15 @@
     <form v-if="!has_sent" class="contact-form" method="post" enctype="multipart/form-data">
         <div class="field columns">
             <div class="column">
-                <input required class="input is-medium" type="text" name="first_name" placeholder="First Name">
+                <input required class="input is-medium" v-model="first_name" type="text" name="first_name" placeholder="First Name">
             </div>
             <div class="column">
-                <input required class="input is-medium" type="text" name="last_name" placeholder="Surname">
+                <input required class="input is-medium" v-model="last_name" type="text" name="last_name" placeholder="Surname">
             </div>
         </div>
         <div class="field columns">
             <div class="control column">
-                <input required class="input is-medium" type="email" name="email" placeholder="Email">
+                <input required class="input is-medium" v-model="email" type="email" name="email" placeholder="Email">
             </div>
         </div>
         <div class="field columns">
@@ -49,6 +49,9 @@ export default
     data        :   function()
                     {
                         return  {
+                                    first_name      :   '',
+                                    last_name       :   '',
+                                    email           :   '',
                                     endpoint        :   global.base_url + '/api/form/contact-us',
                                     is_loading      :   false,
                                     has_sent        :   false
@@ -80,6 +83,7 @@ export default
                     {
                         global.fire_contactform     =   this.submit;
                         $('head').append("\<script src='https://www.google.com/recaptcha/api.js'\>\<\/script\>");
+                        global.contact_form         =   this;
                     },
     updated     :   function()
                     {
