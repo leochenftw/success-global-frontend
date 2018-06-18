@@ -71,6 +71,15 @@
                     }
                 }
             }
+
+            .content {
+                p {
+                    a {
+                        color: $gold;
+                        font-weight: bold;
+                    }
+                }
+            }
         }
 
         &-foot {

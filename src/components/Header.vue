@@ -37,7 +37,7 @@ export default
                     {
                         return  {
                                     is_home                 :   false,
-                                    transparent             :   true,
+                                    transparent             :   false,
                                     mobile_menu_is_active   :   false,
                                     navigation              :   []
                                 }
@@ -47,18 +47,18 @@ export default
                     },
     mounted     :   function()
                     {
-                        let me                              =   this;
-                        $(window).scroll(function(e)
-                        {
-                            if (me.is_home) {
-                                let top                         =   $(window).scrollTop();
-                                if (top < 70) {
-                                    me.transparent              =   true;
-                                } else {
-                                    me.transparent              =   false;
-                                }
-                            }
-                        });
+                        // let me                              =   this;
+                        // $(window).scroll(function(e)
+                        // {
+                        //     if (me.is_home) {
+                        //         let top                         =   $(window).scrollTop();
+                        //         if (top < 70) {
+                        //             me.transparent              =   true;
+                        //         } else {
+                        //             me.transparent              =   false;
+                        //         }
+                        //     }
+                        // });
                     },
     updated     :   function()
                     {

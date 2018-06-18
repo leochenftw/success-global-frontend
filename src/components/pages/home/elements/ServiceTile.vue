@@ -1,10 +1,14 @@
 <template>
-    <div class="column is-half">
-        <a class="service-tile is-block is-relative" :href="link.url" :style="get_bg()">
+    <div class="column is-one-third">
+        <div class="service-tile is-block is-relative" :href="link.url" :style="get_bg()">
             <div class="service-tile__overlay">
-                <h3 class="title is-4 has-text-centered is-absolute-centered">{{title}}</h3>
+                <div class="is-absolute-centered" style="width:100%;">
+                    <h3 class="title is-4 has-text-centered">{{title}}</h3>
+                    <!-- <p class="subtitle has-text-centered"><a href="#" class="button is-gold">Book Consultation</a></p> -->
+                    <p class="has-text-centered is-6"><a style="color: #E6C04C;">New Zealand</a> | <a style="color: #E6C04C;">Australia</a></p>
+                </div>
             </div>
-        </a>
+        </div>
     </div>
 </template>
 

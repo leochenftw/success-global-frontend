@@ -187,49 +187,46 @@ export default
                     },
     updated     :   function()
                     {
-                        var theowl = $('#carousel').owlCarousel(
-                                {
-                                    items                       :   1,
-                                    lazyLoad                    :   true,
-                                    loop                        :   true,
-                                    nav                         :   false,
-                                    dots                        :   true,
-                                    smartSpeed                  :   1000,
-                                    autoplay                    :   true,
-                                    autoplayTimeout             :   6000,
-                                    autoplayHoverPause          :   true,
-                                    navText                     :   [
-                                                                        "<i class='fa fa-chevron-left'></i>",
-                                                                        "<i class='fa fa-chevron-right'></i>"
-                                                                    ]
-                                }).on('loaded.owl.lazy', function(e)
-                                {
-                                    theowl.trigger('play.owl.autoplay');
-                                    var slide           =   $(e.target).find('img[src="' + e.url + '"]').parent().parent();
-                                    slide.css('background-image', 'url(' + e.url + ')');
-                                }).on('drag.owl.carousel', function(e)
-                                {
-                                    // me.pressed                  =   true;
-                                    // document.ontouchmove        =   function(e)
-                                    //                                 {
-                                    //                                     e.preventDefault();
-                                    //                                 }
-                                }).on('dragged.owl.carousel', function(e)
-                                {
-                                    // me.pressed                  =   true;
-                                    // document.ontouchmove        =   function(e)
-                                    //                                 {
-                                    //                                     return true;
-                                    //                                 }
-                                }).on('translate.owl.carousel', function(e)
-                                {
-                                    // me.pressed                  =   true;
-                                }).on('translated.owl.carousel', function(e)
-                                {
-                                    // if (!window.fingerdown) {
-                                    //     me.pressed              =   false;
-                                    // }
-                                }).trigger('drag.owl.carousel').trigger('dragged.owl.carousel').trigger('stop.owl.autoplay');
+                        let me      =   this,
+                            theowl  =   $('#carousel').owlCarousel(
+                                        {
+                                            items                       :   1,
+                                            lazyLoad                    :   true,
+                                            loop                        :   me.carousel.length > 1,
+                                            nav                         :   false,
+                                            dots                        :   me.carousel.length > 1,
+                                            smartSpeed                  :   1000,
+                                            autoplay                    :   me.carousel.length > 1,
+                                            autoplayTimeout             :   6000,
+                                            autoplayHoverPause          :   true
+                                        }).on('loaded.owl.lazy', function(e)
+                                        {
+                                            theowl.trigger('play.owl.autoplay');
+                                            var slide           =   $(e.target).find('img[src="' + e.url + '"]').parent().parent();
+                                            slide.css('background-image', 'url(' + e.url + ')');
+                                        }).on('drag.owl.carousel', function(e)
+                                        {
+                                            // me.pressed                  =   true;
+                                            // document.ontouchmove        =   function(e)
+                                            //                                 {
+                                            //                                     e.preventDefault();
+                                            //                                 }
+                                        }).on('dragged.owl.carousel', function(e)
+                                        {
+                                            // me.pressed                  =   true;
+                                            // document.ontouchmove        =   function(e)
+                                            //                                 {
+                                            //                                     return true;
+                                            //                                 }
+                                        }).on('translate.owl.carousel', function(e)
+                                        {
+                                            // me.pressed                  =   true;
+                                        }).on('translated.owl.carousel', function(e)
+                                        {
+                                            // if (!window.fingerdown) {
+                                            //     me.pressed              =   false;
+                                            // }
+                                        }).trigger('drag.owl.carousel').trigger('dragged.owl.carousel').trigger('stop.owl.autoplay');
                     }
 }
 </script>

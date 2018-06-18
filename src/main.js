@@ -25,12 +25,13 @@ global.main                 =   null;
 global.testimonials         =   [];
 global.footer               =   null;
 global.base_url             =   location.hostname == 'localhost' ? 'https://sgl.leochen.co.nz' : '';
+global.base_prefix          =   '/#';
 global.recaptcha_placed     =   false;
 global.fire_contactform     =   null;
 global.fire_consultation    =   null;
 global.consultation_form    =   null;
 global.overlay              =   null;
-global.disable_scroll       =   false,
+global.disable_scroll       =   false;
 global.getdata              =   function(path, onDone, onFail)
                                 {
                                     axios.get(global.base_url + path)
@@ -51,6 +52,7 @@ global.getdata              =   function(path, onDone, onFail)
                                             global.footer.sitename                      =   response.data.sitename;
                                             global.footer.contact                       =   response.data.contact.branches;
                                             global.footer.news                          =   response.data.news;
+                                            global.footer.slogan                        =   response.data.footer_slogan;
                                             global.consultation_form.csrf               =   response.data.csrf;
                                             global.consultation_form.visa_categories    =   response.data.visa_categories;
                                         })

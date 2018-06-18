@@ -351,7 +351,7 @@ export default
                                                             global.contact_form.first_name  =   this.first_name;
                                                             global.contact_form.last_name   =   this.surname;
                                                             global.contact_form.email       =   this.email;
-                                                            $('body').scrollTo($(global.contact_form.$el), 500, {axis: 'y', offset: -110});
+                                                            $('body').scrollTo($('#section-contact .container'), 500, {axis: 'y', offset: -69});
                                                         },
                         reset                       :   function(e)
                                                         {

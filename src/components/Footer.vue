@@ -7,7 +7,7 @@
                         <img src="../assets/logo-white.png" alt="Sucess Global" width="88" height="50">
                     </h2>
                     <div class="content">
-                        <p>some slogan</p>
+                        <p v-if="slogan">{{slogan}}</p>
                     </div>
                     <a href="#" v-on:click="show_consultation" class="button is-gold">Request Consultation</a>
                 </div>
@@ -56,7 +56,7 @@
                     </h2>
                     <ul v-if="news">
                         <li v-for="item in news">
-                            <a class="columns footer_misc__news is-mobile" :href="item.url">
+                            <a class="columns footer_misc__news is-mobile" :href="[base_prefix + item.url]">
                                 <div class="footer_misc__news__thumb column is-narrow">
                                     <img :src="[base_url + item.thumb]" width="50" height="50" />
                                 </div>
@@ -101,6 +101,8 @@ export default
                     {
                         return  {
                                     base_url        :   global.base_url,
+                                    base_prefix     :   global.base_prefix,
+                                    slogan          :   null,
                                     contact         :   null,
                                     social_medias   :   [],
                                     news            :   [],

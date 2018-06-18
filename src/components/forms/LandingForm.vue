@@ -1,36 +1,36 @@
 <template>
     <form class="landing-form" v-on:submit="submit">
-        <h2 class="is-1 title">{{title}}</h2>
+        <h2 class="is-1 title font-tangerine">{{title}}</h2>
         <div class="fields">
             <div class="columns field">
                 <div class="column">
                     <label class="label">First name</label>
-                    <div class="control has-icons-left">
-                        <input v-model="first_name" class="input is-large" type="text" name="first_name" placeholder="e.g John">
-                        <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+                    <div class="control">
+                        <input v-model="first_name" class="input is-medium" type="text" name="first_name">
+                        <!-- <span class="icon is-small is-left"><i class="fas fa-user"></i></span> -->
                     </div>
                 </div>
                 <div class="column">
                     <label class="label">Surname</label>
-                    <div class="control has-icons-left">
-                        <input v-model="surname" class="input is-large" type="text" name="surname" placeholder="e.g Doe">
-                        <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+                    <div class="control">
+                        <input v-model="surname" class="input is-medium" type="text" name="surname">
+                        <!-- <span class="icon is-small is-left"><i class="fas fa-user"></i></span> -->
                     </div>
                 </div>
             </div>
             <div class="columns field">
                 <div class="column">
                     <label class="label">Contact number</label>
-                    <div class="control has-icons-left">
-                        <input v-model="phone" class="input is-large" type="text" name="contact_number" placeholder="e.g 021 xxx xxxxx">
-                        <span class="icon is-small is-left"><i class="fas fa-phone"></i></span>
+                    <div class="control">
+                        <input v-model="phone" class="input is-medium" type="text" name="contact_number">
+                        <!-- <span class="icon is-small is-left"><i class="fas fa-phone"></i></span> -->
                     </div>
                 </div>
                 <div class="column">
                     <label class="label">Email</label>
-                    <div class="control has-icons-left">
-                        <input v-model="email" class="input is-large" type="email" name="email" placeholder="e.g. john_doe@gmail.com">
-                        <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span>
+                    <div class="control">
+                        <input v-model="email" class="input is-medium" type="email" name="email">
+                        <!-- <span class="icon is-small is-left"><i class="fas fa-envelope"></i></span> -->
                     </div>
                 </div>
             </div>
