@@ -13,9 +13,9 @@
             </div>
         </div> -->
         <div class="container">
-            <h2 :class="['title', 'is-1', 'has-text-centered', 'is-uppercase', {'is-contentless': !content}]">{{title}}</h2>
-            <div class="has-text-centered content" v-if="content" v-html="content"></div>
-            <div class="testimonials" v-if="testimonials">
+            <p class="has-text-centered title is-1"><span class="icon"><i class="fas fa-quote-left"></i></span></p>
+            <div class="content" v-html="quote"></div>
+            <div class="testimonials columns" v-if="testimonials">
                 <Testimonial
                     v-for="(item, i) in testimonials.list"
                     :key="i"
@@ -25,10 +25,6 @@
                     :rating="item.rating"
                     :portrait="item.portrait"
                 />
-            </div>
-            <div class="testimonials__actions has-text-centered">
-                <button v-if="testimonials.next" v-on:click="load_more" class="button is-gold is-large">Load more</button>
-                <p v-else>- That's all -</p>
             </div>
         </div>
     </section>
@@ -55,18 +51,21 @@ export default
     data        :   function()
                     {
                         return  {
-
+                                    quote   :   ''
                                 };
                     },
     components  :   { Testimonial },
     mounted     :   function()
                     {
+                        global.section_testimonials =   this;
                         jarallaxVideo();
                         jarallaxElement();
                         jarallax(document.querySelectorAll('.jarallax'),
                         {
                             speed: 0.2
                         });
+
+                        this.quote          =   this.testimonials.list.length > 0 ? this.testimonials.list[0].content : '';
                     },
     computed    :   {
                         next_url            :   function()

@@ -1,24 +1,20 @@
 <template>
-    <div :class="['testimonial', 'is-mobile', 'columns', oddeven, {'already-visible': already_visible, 'come-in': visible}]">
-        <div :class="{'avatar-col': true, 'column': true, 'is-narrow': true}">
-            <div class="testimonial__avatar is-inline-block">
-                <img v-if="portrait" :src="portrait" :alt="quoter" width="160" height="160" class="is-block">
-                <img v-else src="https://www.gravatar.com/avatar/8a1b5466ce554c9a2bfbf5a407c86018?s=160&amp;d=mm&amp;r=g" :alt="quoter" width="160" height="160" class="is-block">
-            </div>
-        </div>
-        <div class="text-col column is-6">
-            <div class="testimonial__spoke">
-                <div class="testimonial__spoke__rating" v-html="star_maker(rating)"></div>
-                <div class="testimonial__spoke__text content">
-                    <span class="icon"><i class="fas fa-quote-left"></i></span>
-                    <p v-html="trimmed"></p>
+    <a href="#" :class="['testimonial column is-one-third', {'is-active': is_active}]" v-on:click="click_handler">
+        <div class="columns is-variable is-mobile is-2">
+            <div class="avatar-col column is-narrow">
+                <div class="testimonial__avatar is-inline-block">
+                    <img v-if="portrait" :src="base_url + portrait" :alt="quoter" width="160" height="160" class="is-block">
+                    <img v-else src="https://www.gravatar.com/avatar/8a1b5466ce554c9a2bfbf5a407c86018?s=160&amp;d=mm&amp;r=g" :alt="quoter" width="160" height="160" class="is-block">
                 </div>
-                <div class="testimonial__spoke__person">
-                    {{quoter}}
+            </div>
+            <div class="text-col column is-6">
+                <div class="testimonial__profile">
+                    <h3 class="title is-5">{{quoter}}</h3>
+                    <p class="subtitle testimonial__profile__rating" v-html="star_maker(rating)"></p>
                 </div>
             </div>
         </div>
-    </div>
+    </a>
 </template>
 
 <script>
@@ -35,49 +31,57 @@ export default
     data        :   function()
                     {
                         return  {
-                                    already_visible     :   false,
+                                    base_url            :   global.base_url,
                                     visible             :   false,
                                     trim_cap            :   32,
-                                    show_all_content    :   false
+                                    show_all_content    :   false,
+                                    is_active           :   false
                                 };
                     },
     components  :   { },
     mounted     :   function()
                     {
-                        this.animated();
-                        if (!this.already_visible) {
-                            global.testimonials.push(this);
+                        if (global.testimonials.length == 0) {
+                            this.is_active              =   true;
                         }
+                        global.testimonials.push(this);
                     },
     updated     :   function()
                     {
-                        this.animated();
+
                     },
     methods     :   {
-                        animated    :   function()
-                                        {
-                                            this.already_visible        =   $(this.$el).isAboveViewport();
-                                        },
-                        is_visible  :   function()
-                                        {
-                                            if (this.visible) return;
-                                            if ($(this.$el).visible(true)) {
-                                                this.visible            =   true;
-                                            }
-                                        },
-                        star_maker  :   function(rating)
-                                        {
-                                            var stars   =   '';
-
-                                            for (var i = 0; i < 5; i++)
+                        click_handler   :   function(e)
                                             {
-                                                stars   +=  '<span class="icon"><i class="fa' + ( rating >= 1 ? 's' : 'r') + ' fa-star"></i></span>';
-                                                rating--;
+                                                e.preventDefault();
+                                                global.section_testimonials.quote   =   this.content;
+                                                global.testimonials.forEach(function(item)
+                                                {
+                                                    item.is_active                  =   false;
+                                                });
+
+                                                this.is_active                      =   true;
+                                            },
+                        is_visible      :   function()
+                                            {
+                                                if (this.visible) return;
+                                                if ($(this.$el).visible(true)) {
+                                                    this.visible            =   true;
+                                                }
+                                            },
+                        star_maker      :   function(rating)
+                                            {
+                                                var stars   =   '';
+
+                                                for (var i = 0; i < 5; i++)
+                                                {
+                                                    stars   +=  '<span class="icon"><i class="fa' + ( rating >= 1 ? 's' : 'r') + ' fa-star"></i></span>';
+                                                    rating--;
+                                                }
+
+                                                return stars;
+
                                             }
-
-                                            return stars;
-
-                                        },
 
                     },
     computed    :   {
@@ -110,12 +114,6 @@ export default
 
 
                                             return trimmed_content;
-                                        }
-                    },
-    watch       :   {
-                        content     :   function(new_val, old_val)
-                                        {
-                                            console.log(new_val + ' vs ' + old_val);
                                         }
                     }
 };
