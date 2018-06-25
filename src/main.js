@@ -25,7 +25,7 @@ global.main                 =   null;
 global.testimonials         =   [];
 global.footer               =   null;
 global.base_url             =   location.hostname == 'localhost' ? 'https://sgl.leochen.co.nz' : '';
-global.base_prefix          =   '/#';
+global.base_prefix          =   location.hostname == 'localhost' ? '/#' : '/!/#';
 global.recaptcha_placed     =   false;
 global.fire_contactform     =   null;
 global.fire_consultation    =   null;
