@@ -21,6 +21,13 @@ export default
                     },
     components  :   {
                         // Hero
+                    },
+    watch       :   {
+                        $route (to, from)
+                        {
+                            global.overlay.show =   true;
+                            global.overlay.fade =   false;
+                        }
                     }
 }
 </script>

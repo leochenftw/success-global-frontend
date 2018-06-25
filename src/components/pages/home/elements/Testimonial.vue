@@ -1,5 +1,5 @@
 <template>
-    <a href="#" :class="['testimonial column is-one-third', {'is-active': is_active}]" v-on:click="click_handler">
+    <a href="#" :class="['testimonial column is-narrow', {'is-active': is_active}]" v-on:click="click_handler">
         <div class="columns is-variable is-mobile is-2">
             <div class="avatar-col column is-narrow">
                 <div class="testimonial__avatar is-inline-block">
@@ -9,7 +9,7 @@
             </div>
             <div class="text-col column is-6">
                 <div class="testimonial__profile">
-                    <h3 class="title is-5">{{quoter}}</h3>
+                    <h3 class="title is-6">{{quoter}}</h3>
                     <p class="subtitle testimonial__profile__rating" v-html="star_maker(rating)"></p>
                 </div>
             </div>

@@ -15,7 +15,7 @@
         <div class="container">
             <p class="has-text-centered title is-1"><span class="icon"><i class="fas fa-quote-left"></i></span></p>
             <div class="content has-text-centered" v-html="quote"></div>
-            <div class="testimonials columns" v-if="testimonials">
+            <div class="testimonials columns" style="justify-content: center;" v-if="testimonials">
                 <Testimonial
                     v-for="(item, i) in testimonials.list"
                     :key="i"

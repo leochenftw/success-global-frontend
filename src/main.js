@@ -35,69 +35,71 @@ global.disable_scroll       =   false;
 global.getdata              =   function(path, onDone, onFail)
                                 {
                                     axios.get(global.base_url + path)
-                                        .then(function (response)
-                                        {
-                                            if (onDone) {
-                                                onDone(response.data);
-                                            }
+                                    .then(function (response)
+                                    {
+                                        let data                                    =   response.data;
+                                        if (onDone) {
+                                            onDone(data);
+                                        }
 
-                                            global.header.navigation                    =   response.data.navigation.map(function(o)
-                                            {
-                                                o.url                                   =   '/#' + o.url;
-                                                return o;
-                                            });
-                                            global.main.title                           =   response.data.title;
-                                            global.main.hero                            =   response.data.hero;
-                                            global.main.hero_text                       =   response.data.hero_text;
-                                            global.footer.sitename                      =   response.data.sitename;
-                                            global.footer.contact                       =   response.data.contact.branches;
-                                            global.footer.news                          =   response.data.news;
-                                            global.footer.slogan                        =   response.data.footer_slogan;
-                                            global.consultation_form.csrf               =   response.data.csrf;
-                                            global.consultation_form.visa_categories    =   response.data.visa_categories;
-                                        })
-                                        .catch(function (error)
+                                        global.header.navigation                    =   data.navigation.map(function(o)
                                         {
-                                            if (onFail) {
-                                                onFail(data);
-                                            }
-                                        }).then(function (data)
-                                        {
-                                            let get_last_segment        =   function(path)
+                                            o.url                                   =   '/#' + o.url;
+                                            return o;
+                                        });
+                                        global.main.title                           =   data.title;
+                                        global.main.hero                            =   data.hero;
+                                        global.main.hero_text                       =   data.hero_text;
+                                        global.footer.sitename                      =   data.sitename;
+                                        global.footer.contact                       =   data.contact.branches;
+                                        global.footer.news                          =   data.news;
+                                        global.footer.slogan                        =   data.footer_slogan;
+                                        global.consultation_form.csrf               =   data.csrf;
+                                        global.consultation_form.visa_categories    =   data.visa_categories;
+                                    })
+                                    .catch(function (error)
+                                    {
+                                        if (onFail) {
+                                            onFail(error);
+                                        }
+                                    }).then(function (data)
+                                    {
+                                        let get_last_segment        =   function(path)
+                                                                        {
+                                                                            let sg      =   path.split('/'),
+                                                                                classes =   '';
+
+                                                                            sg.forEach(function(o)
                                                                             {
-                                                                                let sg      =   path.split('/'),
-                                                                                    classes =   '';
+                                                                                if (o.trim().length > 0) {
+                                                                                    classes += o.trim() + ' ';
+                                                                                }
+                                                                            });
 
-                                                                                sg.forEach(function(o)
-                                                                                {
-                                                                                    if (o.trim().length > 0) {
-                                                                                        classes += o.trim() + ' ';
-                                                                                    }
-                                                                                });
+                                                                            return 'section-' + classes.trim();
+                                                                        },
+                                            body_class              =   path == '/' ? 'home' : get_last_segment(path);
 
-                                                                                return 'section-' + classes.trim();
-                                                                            },
-                                                body_class              =   path == '/' ? 'home' : get_last_segment(path);
-                                            $('body').removeAttr('class').addClass(body_class);
+                                        $('body').removeAttr('class').addClass(body_class);
 
-                                            if (body_class == 'home') {
-                                                global.header.is_home   =   true;
-                                            } else {
-                                                global.header.is_home   =   false;
-                                            }
+                                        if (body_class == 'home') {
+                                            global.header.is_home   =   true;
+                                        } else {
+                                            global.header.is_home   =   false;
+                                        }
 
+                                        setTimeout(function()
+                                        {
+                                            global.overlay.fade     =   true;
                                             setTimeout(function()
                                             {
-                                                global.overlay.fade     =   true;
-                                                setTimeout(function()
-                                                {
-                                                    global.overlay.show =   false;
-                                                }, 300);
-                                            }, 100);
-                                        });
+                                                global.overlay.show =   false;
+                                            }, 300);
+                                        }, 100);
+                                    });
                                 };
 /* eslint-disable no-new */
-var header      =   new Vue(
+let header      =   new Vue(
                     {
                         el          :   '#header',
                         router,

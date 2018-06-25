@@ -110,10 +110,14 @@
         &__rating {
             white-space: nowrap;
             .icon {
-                font-size: 14px;
+                font-size: 18px;
+                margin-right: 0.25em;
                 color: $gold;
                 width: 1.25rem;
                 height: 1.25rem;
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }

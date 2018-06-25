@@ -1,11 +1,16 @@
 <template>
     <div class="column is-one-third">
-        <div class="service-tile is-block is-relative" :href="link.url" :style="get_bg()">
+        <div class="service-tile is-block is-relative" :style="get_bg()">
             <div class="service-tile__overlay">
                 <div class="is-absolute-centered" style="width:100%;">
                     <h3 class="title is-4 has-text-centered">{{title}}</h3>
-                    <!-- <p class="subtitle has-text-centered"><a href="#" class="button is-gold">Book Consultation</a></p> -->
-                    <p class="has-text-centered is-6"><a style="color: #E6C04C;">New Zealand</a> | <a style="color: #E6C04C;">Australia</a></p>
+                    <p v-if="content" class="subtitle has-text-centered">{{content}}</p>
+                    <p class="has-text-centered is-6">
+                    <template v-for="(item, i) in services">
+                        <a :href="[base_prefix + item.link]">{{item.title}}</a>
+                        <template v-if="i < services.length -1"> | </template>
+                    </template>
+                    </p>
                 </div>
             </div>
         </div>
@@ -21,19 +26,19 @@ export default
                         'title',
                         'content',
                         'background',
-                        'link'
+                        'services'
                     ],
     data        :   function()
                     {
                         return  {
-
+                                    base_prefix     :   global.base_prefix
                                 };
                     },
     components  :   { },
     methods     :   {
                         get_bg  :   function()
                                     {
-                                        return 'padding-top: 56.25%; background-image: url(' + this.background + ');';
+                                        return 'padding-top: 75%; background-image: url(' + this.background + ');';
                                     }
                     },
     mounted     :   function()

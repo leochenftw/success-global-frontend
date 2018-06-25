@@ -14,7 +14,7 @@ export default new Router(
                     component   :   Home
                 },
                 {
-                    path        :   '/:second/:third',
+                    path        :   '/:second/:third/:fourth',
                     name        :   'General Page Layout',
                     component   :   GeneralPage
                 }
