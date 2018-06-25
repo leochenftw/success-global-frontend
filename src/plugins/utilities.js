@@ -303,6 +303,13 @@ Date.prototype.nzst             =   function(include_time, include_second)
     return d + (include_time ? t : '');
 };
 
+String.prototype.nzst           =   function(include_time, include_second)
+{
+    let d                       =   new Date(this);
+
+    return d.nzst(include_time, include_second);
+};
+
 Number.prototype.toDate         =   function()
 {
     if (!isNaN(this)) {

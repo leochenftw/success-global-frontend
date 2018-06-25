@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/pages/home/Home'
 import GeneralPage from '@/components/pages/GeneralPage'
+import NewsList from '@/components/pages/NewsList'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ export default new Router(
                     path        :   '/:second/:third/:fourth',
                     name        :   'General Page Layout',
                     component   :   GeneralPage
+                },
+                {
+                    path        :   '/news/:slug',
+                    name        :   'News List',
+                    component   :   NewsList
                 }
             ]
 });
