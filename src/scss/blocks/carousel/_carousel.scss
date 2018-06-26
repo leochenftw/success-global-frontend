@@ -101,41 +101,6 @@
     @include mobile {
         margin-top: 70px;
     }
-    .landing-form {
-        z-index: 2;
-        position: absolute;
-        top: 50%;
-        width: calc(40% + 32px);
-        max-width: 768px;
-        transform: translateY(-50%);
-        padding: 0 2rem;
-        right: 0;
-        @include mobile {
-            width: 100%;
-            position: relative;
-            transform: none;
-            top: auto;
-            right: auto;
-            padding: 2rem 1rem;
-        }
-        .title {
-            font-weight: bold;
-            text-shadow: 0 2px 5px rgba($black, 0.2);
-        }
-        .fields {
-            label {
-                color: $white;
-                text-shadow: 0 2px 5px rgba($black, 0.2);
-            }
-            margin-bottom: 2rem;
-        }
 
-        .content {
-            p {
-                a {
-                    color: $gold;
-                }
-            }
-        }
-    }
+    @import '../forms/landing-form';
 }
