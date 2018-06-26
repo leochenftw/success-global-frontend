@@ -5,14 +5,14 @@
             <h2 class="title is-1 is-absolute-centered">{{title}}</h2>
         </div>
         <div class="container">
-            <div class="columns is-multiline">
+            <div class="columns is-multiline is-variable is-1">
                 <ServiceTile
                     v-for="(item, i) in services"
                     :key="i"
                     :title="item.title"
-                    :content="item.abstract"
+                    :content="item.subtitle"
                     :background="item.background"
-                    :link="item.link"
+                    :services="item.services"
                 />
             </div>
         </div>

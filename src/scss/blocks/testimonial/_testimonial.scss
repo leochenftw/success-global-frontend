@@ -1,20 +1,36 @@
 .testimonial {
-
+    filter: grayscale(1);
+    transition: all 0.3s;
+    &:hover,
+    &:focus,
+    &.is-active {
+        filter: grayscale(0);
+    }
     &.columns {
         margin-bottom: 48px;
     }
 
+    .columns {
+        align-items: center;
+    }
+
     &s {
-        h2.title {
-            color: $eeri-black;
-            &.is-contentless {
-                margin-bottom: 4rem;
+        .title {
+            &.is-1 {
+                font-size: 72px;
+                margin-bottom: 3rem;
             }
         }
 
         .content {
-            &:first-child {
-                margin-bottom: 64px;
+            margin-bottom: 5rem;
+            font-size: 20px;
+        }
+
+        h2.title {
+            color: $eeri-black;
+            &.is-contentless {
+                margin-bottom: 4rem;
             }
         }
 
@@ -75,13 +91,34 @@
 
     &__avatar {
         padding: 5px;
-        border: 1px solid #b5b5b5;
-        width: 80px;
-        height: 80px;
+        border: 1px solid $gold;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         overflow: hidden;
         img {
             border-radius: 50%;
+        }
+    }
+
+    &__profile {
+        .title {
+            white-space: nowrap;
+            font-weight: bold;
+            color: $eeri-black;
+        }
+        &__rating {
+            white-space: nowrap;
+            .icon {
+                font-size: 18px;
+                margin-right: 0.25em;
+                color: $gold;
+                width: 1.25rem;
+                height: 1.25rem;
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
     }
 

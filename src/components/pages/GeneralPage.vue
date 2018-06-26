@@ -42,7 +42,7 @@ export default
                             function(data)
                             {
                                 me.title                    =   data.title;
-                                me.hero                     =   global.base_url + data.background;
+                                me.hero                     =   data.hero.indexOf('http') != 0 ? global.base_url + data.hero : data.hero;
                                 me.content                  =   data.content;
                                 me.abstract                 =   data.abstract;
                             }

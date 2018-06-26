@@ -48,7 +48,7 @@
             :title="section_services.title"
             :content="section_services.content"
             :hero="section_services.hero"
-            :services="section_services.services"
+            :services="section_services.categories"
         />
         <SectionContact
             v-if="section_contact"
@@ -118,10 +118,12 @@ export default
                                 });
 
                                 me.section_services             =   data.services;
-                                me.section_services.services.forEach(function(o)
+                                me.section_services.categories.forEach(function(o)
                                 {
                                     if (o.background) {
-                                        o.background            =   base_url + o.background;
+                                        if (o.background.indexOf('http') != 0) {
+                                            o.background            =   base_url + o.background;
+                                        }
                                         if (o.link && o.link.url) {
                                             o.link.url          =   (process.env.NODE_ENV == 'development' ? '/#' : '/!/#') + o.link.url;
                                         }

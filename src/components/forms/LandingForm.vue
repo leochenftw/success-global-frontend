@@ -1,6 +1,8 @@
 <template>
     <form class="landing-form" v-on:submit="submit">
-        <h2 class="is-1 title font-tangerine">{{title}}</h2>
+        <h2 class="is-1 title">
+            <img src="@/assets/ask_the_expert.png" />
+        </h2>
         <div class="fields">
             <div class="columns field">
                 <div class="column">
