@@ -1,6 +1,6 @@
 <template>
     <div class="column is-one-third">
-        <a :href="url" class="service-tile is-block is-relative" :style="get_bg()">
+        <a :href="[base_prefix + url]" class="service-tile is-block is-relative" :style="get_bg()">
             <div class="service-tile__overlay">
                 <h3 class="title is-4">{{title}}</h3>
                 <!-- <div class="is-absolute-centered" style="width:100%;">
