@@ -1,5 +1,6 @@
 <template>
     <div id="content-area">
+        <h1 id="page-title" class="title is-1" style="display: none;">{{title}}</h1>
         <div id="carousel-wrapper">
             <div id="carousel" class="owl-carousel owl-theme">
                 <CarouselItem
@@ -17,15 +18,6 @@
                 :title="slogan"
             />
         </div>
-        <SectionTestimonials
-            v-if="section_testimonials"
-            :title="section_testimonials.title"
-            :content="section_testimonials.content"
-            :hero="section_testimonials.hero"
-            :section_url="section_testimonials.section_url"
-            :testimonials="section_testimonials.testimonials"
-            :highlights="section_testimonials.highlights"
-        />
         <SectionAbout
             v-if="section_about"
             :title="section_about.title"
@@ -36,6 +28,20 @@
             :right_col="section_about.right_col"
             :highlights="section_testimonials.highlights"
         />
+        <SectionService
+            v-if="section_services"
+            :title="section_services.title"
+            :content="section_services.content"
+            :hero="section_services.hero"
+            :services="section_services.categories"
+        />
+        <SectionPoD
+            v-if="section_pod"
+            :title="section_pod.title"
+            :hero="section_pod.hero"
+            :content="section_pod.content"
+            :points="section_pod.points"
+        />
         <SectionTeam
             v-if="section_team"
             :title="section_team.title"
@@ -43,12 +49,14 @@
             :content="section_team.content"
             :branches="section_team.branches"
         />
-        <SectionService
-            v-if="section_services"
-            :title="section_services.title"
-            :content="section_services.content"
-            :hero="section_services.hero"
-            :services="section_services.categories"
+        <SectionTestimonials
+            v-if="section_testimonials"
+            :title="section_testimonials.title"
+            :content="section_testimonials.content"
+            :hero="section_testimonials.hero"
+            :section_url="section_testimonials.section_url"
+            :testimonials="section_testimonials.testimonials"
+            :highlights="section_testimonials.highlights"
         />
         <SectionContact
             v-if="section_contact"
@@ -69,6 +77,7 @@ import SectionTestimonials from './blocks/SectionTestimonials';
 import SectionTeam from './blocks/SectionTeam';
 import SectionContact from './blocks/SectionContact';
 import LandingForm from '@/components/forms/LandingForm';
+import SectionPoD from './blocks/SectionPoD';
 import 'owl.carousel';
 export default
 {
@@ -76,11 +85,13 @@ export default
     data        :   function()
                     {
                         return  {
+                                    title                       :   '',
                                     slogan                      :   '',
                                     carousel                    :   [],
                                     section_services            :   null,
                                     section_about               :   null,
                                     section_testimonials        :   null,
+                                    section_pod                 :   null,
                                     section_team                :   null,
                                     section_contact             :   null,
                                     csrf                        :   null
@@ -93,7 +104,8 @@ export default
                         SectionTestimonials,
                         SectionTeam,
                         SectionContact,
-                        LandingForm
+                        LandingForm,
+                        SectionPoD
                     },
     created     :   function()
                     {
@@ -106,6 +118,7 @@ export default
                             me.$route.path,
                             function(data)
                             {
+                                me.title                        =   data.title;
                                 me.csrf                         =   data.csrf;
                                 me.slogan                       =   data.slogan;
                                 me.carousel                     =   data.carousel;
@@ -147,6 +160,7 @@ export default
                                 me.section_testimonials.hero    =   base_url + me.section_testimonials.hero;
 
                                 me.section_team                 =   data.team;
+                                me.section_pod                  =   data.points_of_diff;
 
                                 if (me.section_team.hero) {
                                     me.section_team.hero        =   base_url + me.section_team.hero;

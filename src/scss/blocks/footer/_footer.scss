@@ -2,7 +2,13 @@
     padding-top: 5rem;
     background-color: $eeri-black;
     color: rgba($white, 0.4);
-
+    transition: all ease-in 0.3s;
+    opacity: 1;
+    visibility: visible;
+    &.is-loading {
+        opacity: 0;
+        visibility: hidden;
+    }
     a {
         color: rgba($white, 0.4);
         transition: color ease-in-out 0.3s;

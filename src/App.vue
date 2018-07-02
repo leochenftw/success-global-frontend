@@ -1,6 +1,5 @@
 <template>
-    <main id="app">
-        <h1 id="page-title" class="title is-1" style="display: none;">{{title}}</h1>
+    <main id="app" :class="{'is-loading': is_loading}">
         <router-view />
     </main>
 </template>
@@ -13,10 +12,7 @@ export default
     data        :   function()
                     {
                         return  {
-                                    title       :   null,
-                                    content     :   null,
-                                    hero_text   :   null,
-                                    hero        :   null
+                                    is_loading  :   false
                                 };
                     },
     components  :   {
@@ -25,8 +21,14 @@ export default
     watch       :   {
                         $route (to, from)
                         {
-                            global.overlay.show =   true;
-                            global.overlay.fade =   false;
+                            this.is_loading             =   true;
+                            global.footer.is_loading    =   true;
+                            // global.overlay.show =   true;
+                            // global.overlay.fade =   false;
+                            setTimeout(function ()
+                            {
+                                NProgress.start();
+                            }, 300);
                         }
                     }
 }

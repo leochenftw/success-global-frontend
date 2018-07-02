@@ -9,6 +9,8 @@ import TeamMemberModal from './components/modals/TeamMemberModal';
 import ConsultationForm from './components/forms/ConsultationForm';
 import LoadingOverlay from './components/LoadingOverlay';
 import axios from 'axios';
+import NProgress from 'nprogress';
+
 require('lightbox2');
 require('jquery-visible');
 require('jquery.scrollto');
@@ -19,6 +21,7 @@ axios.defaults.headers.common = {
 };
 
 Vue.config.productionTip    =   false;
+global.NProgress            =   NProgress;
 global.axios                =   axios;
 global.header               =   null;
 global.main                 =   null;
@@ -47,9 +50,9 @@ global.getdata              =   function(path, onDone, onFail)
                                             o.url                                   =   '/#' + o.url;
                                             return o;
                                         });
-                                        global.main.title                           =   data.title;
-                                        global.main.hero                            =   data.hero;
-                                        global.main.hero_text                       =   data.hero_text;
+                                        // global.main.title                           =   data.title;
+                                        // global.main.hero                            =   data.hero;
+                                        // global.main.hero_text                       =   data.hero_text;
                                         global.footer.sitename                      =   data.sitename;
                                         global.footer.contact                       =   data.contact.branches;
                                         global.footer.news                          =   data.news;
@@ -64,38 +67,42 @@ global.getdata              =   function(path, onDone, onFail)
                                         }
                                     }).then(function (data)
                                     {
-                                        let get_last_segment        =   function(path)
-                                                                        {
-                                                                            let sg      =   path.split('/'),
-                                                                                classes =   '';
-
-                                                                            sg.forEach(function(o)
+                                        let get_last_segment            =   function(path)
                                                                             {
-                                                                                if (o.trim().length > 0) {
-                                                                                    classes += o.trim() + ' ';
-                                                                                }
-                                                                            });
+                                                                                let sg      =   path.split('/'),
+                                                                                    classes =   '';
 
-                                                                            return 'section-' + classes.trim();
-                                                                        },
-                                            body_class              =   path == '/' ? 'home' : get_last_segment(path);
+                                                                                sg.forEach(function(o)
+                                                                                {
+                                                                                    if (o.trim().length > 0) {
+                                                                                        classes += o.trim() + ' ';
+                                                                                    }
+                                                                                });
+
+                                                                                return 'section-' + classes.trim();
+                                                                            },
+                                            body_class                      =   path == '/' ? 'home' : get_last_segment(path);
 
                                         $('body').removeAttr('class').addClass(body_class);
 
                                         if (body_class == 'home') {
-                                            global.header.is_home   =   true;
+                                            global.header.is_home           =   true;
                                         } else {
-                                            global.header.is_home   =   false;
+                                            global.header.is_home           =   false;
                                         }
 
                                         setTimeout(function()
                                         {
-                                            global.overlay.fade     =   true;
+                                            global.overlay.fade             =   true;
                                             setTimeout(function()
                                             {
-                                                global.overlay.show =   false;
+                                                global.overlay.show         =   false;
+                                                NProgress.done();
+                                                global.main.is_loading      =   false;
+                                                global.footer.is_loading    =   false;
                                             }, 300);
                                         }, 100);
+
                                     });
                                 };
 /* eslint-disable no-new */

@@ -17,7 +17,8 @@
 
 @import 'config/colours';
 
-@import 'blocks/header/header',
+@import 'blocks/page',
+        'blocks/header/header',
         'blocks/owl-carousel/owl.carousel',
         'blocks/carousel/carousel',
         'blocks/jarallax/jarallax',
@@ -29,6 +30,8 @@
         'blocks/forms/contact-form',
         'blocks/footer/footer',
         'blocks/overlays/loading-overlay';
+
+@import 'elements/nprogress';
 
 html {
     &.is {

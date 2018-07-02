@@ -11,6 +11,7 @@
                     :key="i"
                     :title="item.title"
                     :content="item.subtitle"
+                    :url="item.url"
                     :background="item.background"
                     :services="item.services"
                 />

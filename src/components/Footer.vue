@@ -1,5 +1,5 @@
 <template>
-    <footer id="footer" class="footer">
+    <footer id="footer" :class="['footer', {'is-loading': is_loading}]">
         <div class="footer__misc container">
             <div class="columns">
                 <div class="column">
@@ -106,7 +106,8 @@ export default
                                     contact         :   null,
                                     social_medias   :   [],
                                     news            :   [],
-                                    sitename        :   null
+                                    sitename        :   null,
+                                    is_loading      :   false
                                 };
                     },
     components  :   {  },

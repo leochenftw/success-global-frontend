@@ -15,6 +15,11 @@ export default new Router(
                     component   :   Home
                 },
                 {
+                    path        :   '/our-expertise/:third',
+                    name        :   'Our expertise',
+                    component   :   GeneralPage
+                },
+                {
                     path        :   '/:second/:third/:fourth',
                     name        :   'General Page Layout',
                     component   :   GeneralPage

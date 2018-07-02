@@ -1,0 +1,33 @@
+.page {
+    &-content {
+        &__heading {
+            padding: 0 24px;
+            width: 100%;
+            .title {
+                white-space: normal !important;
+            }
+
+            &__breadcrumbs {
+                white-space: nowrap;
+                color: $white;
+                a {
+                    color: $white;
+                }
+
+                span {
+                    color: rgba($white, 0.6);
+                }
+            }
+        }
+    }
+}
+
+#app {
+    transition: all ease-in 0.3s;
+    opacity: 1;
+    visibility: visible;
+    &.is-loading {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

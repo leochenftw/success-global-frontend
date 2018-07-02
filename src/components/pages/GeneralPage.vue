@@ -2,7 +2,18 @@
     <section class="page-content jarallax-section">
         <div class="page-content__hero jarallax">
             <img class="jarallax-img" :src="hero" alt="">
-            <h2 class="title is-1 is-absolute-centered">{{title}}</h2>
+            <div class="page-content__heading is-absolute-centered">
+                <h1 class="title is-1 is-paddingless has-text-centered">{{title}}</h1>
+                <p v-if="breadcrumbs" class="subtitle page-content__heading__breadcrumbs is-6 has-text-centered">
+                <template v-for="(breadcrumb, i) in breadcrumbs">
+                    <template v-if="i < breadcrumbs.length - 1">
+                        <a class="page-content__heading__breadcrumb" :href="breadcrumb.url">{{breadcrumb.title}}</a>
+                        <span class="separator"> › </span>
+                    </template>
+                    <span class="page-content__heading__breadcrumb" v-else>{{breadcrumb.title}}</span>
+                </template>
+                </p>
+            </div>
         </div>
         <div class="container">
             <div v-if="abstract" class="page-content__abstract content">
@@ -27,6 +38,7 @@ export default
                     {
                         return  {
                                     title                   :   null,
+                                    breadcrumbs             :   null,
                                     intro                   :   null,
                                     hero                    :   null,
                                     abstract                :   null,
@@ -36,28 +48,44 @@ export default
     components  :   { },
     mounted     :   function()
                     {
-                        let me                              =   this;
-                        global.getdata(
-                            me.$route.path,
-                            function(data)
-                            {
-                                me.title                    =   data.title;
-                                me.hero                     =   data.hero.indexOf('http') != 0 ? global.base_url + data.hero : data.hero;
-                                me.content                  =   data.content;
-                                me.abstract                 =   data.abstract;
-                            }
-                        );
-
-                        jarallaxVideo();
-                        jarallaxElement();
-                        jarallax(document.querySelectorAll('.jarallax'),
-                        {
-                            speed: 0.2
-                        });
+                        this.fetch();
                     },
     updated     :   function()
                     {
                         $.scrollTo('body', 0, {axis: 'y'});
+                    },
+    methods     :   {
+                        fetch                               :   function()
+                                                                {
+                                                                    let me                              =   this;
+                                                                    global.getdata(
+                                                                        me.$route.path,
+                                                                        function(data)
+                                                                        {
+                                                                            me.breadcrumbs              =   data.breadcrumbs;
+                                                                            me.title                    =   data.title;
+                                                                            me.hero                     =   data.hero.indexOf('http') != 0 ?
+                                                                                                            global.base_url + data.hero :
+                                                                                                            data.hero;
+
+                                                                            me.content                  =   data.content;
+                                                                            me.abstract                 =   data.abstract;
+                                                                        }
+                                                                    );
+
+                                                                    jarallaxVideo();
+                                                                    jarallaxElement();
+                                                                    jarallax(document.querySelectorAll('.jarallax'),
+                                                                    {
+                                                                        speed: 0.2
+                                                                    });
+                                                                }
+                    },
+    watch       :   {
+                        $route (to, from)
+                        {
+                            this.fetch();
+                        }
                     }
 }
 </script>

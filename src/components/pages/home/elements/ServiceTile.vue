@@ -1,8 +1,9 @@
 <template>
     <div class="column is-one-third">
-        <div class="service-tile is-block is-relative" :style="get_bg()">
+        <a :href="url" class="service-tile is-block is-relative" :style="get_bg()">
             <div class="service-tile__overlay">
-                <div class="is-absolute-centered" style="width:100%;">
+                <h3 class="title is-4">{{title}}</h3>
+                <!-- <div class="is-absolute-centered" style="width:100%;">
                     <h3 class="title is-4 has-text-centered">{{title}}</h3>
                     <p v-if="content" class="subtitle has-text-centered">{{content}}</p>
                     <p class="has-text-centered is-6">
@@ -11,9 +12,9 @@
                         <template v-if="i < services.length -1"> | </template>
                     </template>
                     </p>
-                </div>
+                </div> -->
             </div>
-        </div>
+        </a>
     </div>
 </template>
 
@@ -26,6 +27,7 @@ export default
                         'title',
                         'content',
                         'background',
+                        'url',
                         'services'
                     ],
     data        :   function()

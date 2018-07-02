@@ -4,7 +4,7 @@
             <img class="jarallax-img" :src="hero" alt="">
             <h2 class="title is-1 is-absolute-centered">{{title}}</h2>
         </div> -->
-        <div class="testimonials__hero jarallax">
+        <!-- <div class="testimonials__hero jarallax">
             <img class="jarallax-img" :src="hero" alt="">
             <div class="is-absolute-centered testimonials__hero__highlights__container container">
                 <div class="columns is-relative testimonials__hero__highlights">
@@ -15,7 +15,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="container">
             <div class="columns is-multiline">
                 <div class="column is-half content" v-html="intro" ></div>
