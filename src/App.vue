@@ -21,10 +21,11 @@ export default
     watch       :   {
                         $route (to, from)
                         {
-                            this.is_loading             =   true;
-                            global.footer.is_loading    =   true;
+                            this.is_loading                     =   true;
+                            global.footer.is_loading            =   true;
                             // global.overlay.show =   true;
                             // global.overlay.fade =   false;
+                            global.header.mobile_menu_is_active =   false;
                             setTimeout(function ()
                             {
                                 NProgress.start();

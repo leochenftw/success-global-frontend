@@ -14,14 +14,20 @@ export default new Router(
                     name        :   'Home',
                     component   :   Home
                 },
+                ,
                 {
-                    path        :   '/our-expertise/:third',
-                    name        :   'Our expertise',
+                    path        :   '/:second',
+                    name        :   'Level 2',
+                    component   :   GeneralPage
+                },
+                {
+                    path        :   '/:second/:third',
+                    name        :   'Level 3',
                     component   :   GeneralPage
                 },
                 {
                     path        :   '/:second/:third/:fourth',
-                    name        :   'General Page Layout',
+                    name        :   'Level 4',
                     component   :   GeneralPage
                 },
                 {

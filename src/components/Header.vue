@@ -15,7 +15,8 @@
             <div id="mobile-menu" :class="{'navbar-menu': true, 'is-active': mobile_menu_is_active}">
                 <div class="navbar-end">
                     <div class="navbar-item" v-for="item in navigation">
-                        <a :href="item.url" v-on:click="scroll_to($event,item.scroll_to)">{{item.title}}</a>
+                        <!-- <a :href="[base_prefix + item.url]" v-on:click="scroll_to($event,item.scroll_to)">{{item.title}}</a> -->
+                        <a :href="[base_prefix + item.url]">{{item.title}}</a>
                     </div>
                     <div class="navbar-item">
                         <div class="field is-grouped">
@@ -81,9 +82,22 @@ export default
                                                         this.mobile_menu_is_active  =   false;
                                                     }
                                                 },
+                        click_to_close      :   function(e)
+                                                {
+                                                    let target                      =   $(e.target);
+                                                    if (!target.is('.burger') &&
+                                                        target.parents('.burger').length == 0 &&
+                                                        !target.is('.navbar-item') &&
+                                                        target.parents('.navbar-item').length == 0) {
+
+                                                        this.mobile_menu_is_active      =   false;
+                                                        $(window).unbind('mousedown', this.click_to_close);
+                                                    }
+                                                },
                         show_mobile_menu    :   function(e)
                                                 {
                                                     e.preventDefault();
+                                                    $(window).unbind('mousedown', this.click_to_close).on('mousedown', this.click_to_close);
                                                     this.mobile_menu_is_active      =   !this.mobile_menu_is_active;
                                                 }
                     }

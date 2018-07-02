@@ -340,6 +340,7 @@ export default
                                                                 if (this.ref && !this.pay_link) {
                                                                     this.retrieve_booking();
                                                                 }
+                                                                global.header.mobile_menu_is_active =   false;
                                                             }
                                                         }
                     },

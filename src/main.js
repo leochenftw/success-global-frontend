@@ -45,11 +45,7 @@ global.getdata              =   function(path, onDone, onFail)
                                             onDone(data);
                                         }
 
-                                        global.header.navigation                    =   data.navigation.map(function(o)
-                                        {
-                                            o.url                                   =   '/#' + o.url;
-                                            return o;
-                                        });
+                                        global.header.navigation                    =   data.navigation;
                                         // global.main.title                           =   data.title;
                                         // global.main.hero                            =   data.hero;
                                         // global.main.hero_text                       =   data.hero_text;

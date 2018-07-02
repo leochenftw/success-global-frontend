@@ -1,35 +1,25 @@
 <template>
-    <section class="page-content jarallax-section">
-        <div class="page-content__hero jarallax">
-            <img class="jarallax-img" :src="hero" alt="">
-            <div class="page-content__heading is-absolute-centered">
-                <h1 class="title is-1 is-paddingless has-text-centered">{{title}}</h1>
-                <p v-if="breadcrumbs" class="subtitle page-content__heading__breadcrumbs is-6 has-text-centered">
-                <template v-for="(breadcrumb, i) in breadcrumbs">
-                    <template v-if="i < breadcrumbs.length - 1">
-                        <a class="page-content__heading__breadcrumb" :href="breadcrumb.url">{{breadcrumb.title}}</a>
-                        <span class="separator"> › </span>
-                    </template>
-                    <span class="page-content__heading__breadcrumb" v-else>{{breadcrumb.title}}</span>
-                </template>
-                </p>
-            </div>
-        </div>
-        <div class="container">
-            <div v-if="abstract" class="page-content__abstract content">
-                <blockquote v-html="abstract"></blockquote>
-            </div>
-            <article class="page-content__content content" v-html="content"></article>
-        </div>
-    </section>
+    <NewsList
+        v-if="second_param == 'news'"
+        :hero="hero"
+        :breadcrumbs="breadcrumbs"
+        :title="title"
+        :content="content"
+        :items="items"
+    />
+    <GeneralLayout
+        v-else
+        :title="title"
+        :breadcrumbs="breadcrumbs"
+        :hero="hero"
+        :abstract="abstract"
+        :content="content"
+     />
 </template>
 
 <script>
-import {
-    jarallax,
-    jarallaxElement,
-    jarallaxVideo
-} from 'jarallax';
+import GeneralLayout from './GeneralLayout';
+import NewsList from './NewsList';
 export default
 {
     name        :   'GeneralPage',
@@ -39,15 +29,20 @@ export default
                         return  {
                                     title                   :   null,
                                     breadcrumbs             :   null,
-                                    intro                   :   null,
                                     hero                    :   null,
                                     abstract                :   null,
-                                    content                 :   null
+                                    content                 :   null,
+                                    items                   :   null,
+                                    second_param            :   ''
                                 };
                     },
-    components  :   { },
+    components  :   {
+                        GeneralLayout,
+                        NewsList
+                    },
     mounted     :   function()
                     {
+                        this.second_param                   =   this.$route.params.second;
                         this.fetch();
                     },
     updated     :   function()
@@ -55,6 +50,15 @@ export default
                         $.scrollTo('body', 0, {axis: 'y'});
                     },
     methods     :   {
+                        reset                               :   function()
+                                                                {
+                                                                    this.title                          =   null;
+                                                                    this.breadcrumbs                    =   null;
+                                                                    this.hero                           =   null;
+                                                                    this.abstract                       =   null;
+                                                                    this.content                        =   null;
+                                                                    this.items                          =   null;
+                                                                },
                         fetch                               :   function()
                                                                 {
                                                                     let me                              =   this;
@@ -70,20 +74,18 @@ export default
 
                                                                             me.content                  =   data.content;
                                                                             me.abstract                 =   data.abstract;
+                                                                            if (data.newsitems) {
+                                                                                me.items                =   data.newsitems;
+                                                                            }
                                                                         }
                                                                     );
-
-                                                                    jarallaxVideo();
-                                                                    jarallaxElement();
-                                                                    jarallax(document.querySelectorAll('.jarallax'),
-                                                                    {
-                                                                        speed: 0.2
-                                                                    });
                                                                 }
                     },
     watch       :   {
                         $route (to, from)
                         {
+                            this.reset();
+                            this.second_param               =   to.params.second;
                             this.fetch();
                         }
                     }

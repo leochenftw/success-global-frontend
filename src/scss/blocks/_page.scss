@@ -23,7 +23,7 @@
 }
 
 #app {
-    transition: all ease-in 0.3s;
+    transition: all ease-in 0.1s;
     opacity: 1;
     visibility: visible;
     &.is-loading {

@@ -14,9 +14,9 @@
                 />
             </div>
 
-            <LandingForm
+            <!-- <LandingForm
                 :title="slogan"
-            />
+            /> -->
         </div>
         <SectionAbout
             v-if="section_about"
@@ -42,13 +42,6 @@
             :content="section_pod.content"
             :points="section_pod.points"
         />
-        <SectionTeam
-            v-if="section_team"
-            :title="section_team.title"
-            :hero="section_team.hero"
-            :content="section_team.content"
-            :branches="section_team.branches"
-        />
         <SectionTestimonials
             v-if="section_testimonials"
             :title="section_testimonials.title"
@@ -57,6 +50,13 @@
             :section_url="section_testimonials.section_url"
             :testimonials="section_testimonials.testimonials"
             :highlights="section_testimonials.highlights"
+        />
+        <SectionTeam
+            v-if="section_team"
+            :title="section_team.title"
+            :hero="section_team.hero"
+            :content="section_team.content"
+            :branches="section_team.branches"
         />
         <SectionContact
             v-if="section_contact"
@@ -126,7 +126,7 @@ export default
                                 {
                                     o.background                =   base_url + o.background;
                                     if (o.link && o.link.url) {
-                                        o.link.url              =   '/#' + o.link.url;
+                                        o.link.url              =   base_prefix + o.link.url;
                                     }
                                 });
 

@@ -2,7 +2,18 @@
     <section class="page-content jarallax-section">
         <div class="page-content__hero jarallax">
             <img class="jarallax-img" :src="hero" alt="">
-            <h1 class="title is-1 is-absolute-centered">{{title}}</h1>
+            <div class="page-content__heading is-absolute-centered">
+                <h1 class="title is-1 is-paddingless has-text-centered">{{title}}</h1>
+                <p v-if="breadcrumbs" class="subtitle page-content__heading__breadcrumbs is-6 has-text-centered">
+                <template v-for="(breadcrumb, i) in breadcrumbs">
+                    <template v-if="i < breadcrumbs.length - 1">
+                        <a class="page-content__heading__breadcrumb" :href="breadcrumb.url">{{breadcrumb.title}}</a>
+                        <span class="separator"> › </span>
+                    </template>
+                    <span class="page-content__heading__breadcrumb" v-else>{{breadcrumb.title}}</span>
+                </template>
+                </p>
+            </div>
         </div>
         <div class="container">
             <article class="page-content__content content" v-html="content"></article>
@@ -31,32 +42,34 @@ import {
 export default
 {
     name            :   'NewsList',
-    props           :   {},
+    props           :   [
+                            'hero',
+                            'title',
+                            'breadcrumbs',
+                            'content',
+                            'items'
+                        ],
     data            :   function()
                         {
                             return  {
-                                        hero        :   '',
-                                        title       :   '',
-                                        content     :   '',
-                                        items       :   [],
                                         base_url    :   global.base_url
                                     };
                         },
     mounted         :   function()
                         {
-                            let me                              =   this;
-                            global.getdata(
-                                '/news/',
-                                function(data)
-                                {
-                                    me.title                    =   data.title;
-                                    me.hero                     =   data.hero.indexOf('http') != 0 ?
-                                                                    global.base_url + data.hero :
-                                                                    data.hero;
-                                    me.content                  =   data.content;
-                                    me.items                    =   data.newsitems;
-                                }
-                            );
+                            // let me                              =   this;
+                            // global.getdata(
+                            //     '/news/',
+                            //     function(data)
+                            //     {
+                            //         me.title                    =   data.title;
+                            //         me.hero                     =   data.hero.indexOf('http') != 0 ?
+                            //                                         global.base_url + data.hero :
+                            //                                         data.hero;
+                            //         me.content                  =   data.content;
+                            //         me.items                    =   data.newsitems;
+                            //     }
+                            // );
 
                             jarallaxVideo();
                             jarallaxElement();
@@ -67,17 +80,17 @@ export default
                         },
     updated        :   function()
                         {
-                            let slug                            =   this.$route.params.slug;
-                            this.$nextTick().then(function()
-                            {
-                                $.scrollTo($('.news-item[data-slug="' + slug + '"]'), 0, {axis: 'y', offset: -80});
-                            });
+                            // let slug                            =   this.$route.params.slug;
+                            // this.$nextTick().then(function()
+                            // {
+                            //     $.scrollTo($('.news-item[data-slug="' + slug + '"]'), 0, {axis: 'y', offset: -80});
+                            // });
                         },
     methods        :   {
-                            date_posted     :   function(d)
-                                                {
-                                                    return d.nzst(true, false);
-                                                }
+                            date_posted                         :   function(d)
+                                                                    {
+                                                                        return d.nzst(true, false);
+                                                                    }
                         }
 }
 </script>
