@@ -2,7 +2,7 @@
     <header id="header" :class="{'is-transparent': transparent}">
         <nav class="navbar is-transparent">
             <div class="navbar-brand">
-                <a class="navbar-item" :href="[base_prefix + '/']" v-on:click="scroll_to($event,'body')">
+                <a class="navbar-item" :href="[base_prefix + '/']">
                     <img v-if="transparent" src="../assets/logo-white.png" alt="Success Global" width="88" height="50">
                     <img v-else src="../assets/logo.png" alt="Success Global" width="88" height="50">
                 </a>
