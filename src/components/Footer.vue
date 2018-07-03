@@ -46,7 +46,7 @@
                         </li>
                         <li class="is-relative">
                             <span class="icon"><i class="fas fa-map-marker"></i></span>
-                            <p v-html="contact[0].physical"></p>
+                            <p><a :href="contact[0].url" target="_blank" v-html="contact[0].physical"></a></p>
                         </li>
                     </ul>
                 </div>

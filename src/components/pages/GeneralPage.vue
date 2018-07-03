@@ -6,6 +6,7 @@
         :title="title"
         :content="content"
         :items="items"
+        :show_breadcrumbs="show_breadcrumbs"
     />
     <GeneralLayout
         v-else
@@ -14,6 +15,7 @@
         :hero="hero"
         :abstract="abstract"
         :content="content"
+        :show_breadcrumbs="show_breadcrumbs"
      />
 </template>
 
@@ -33,7 +35,8 @@ export default
                                     abstract                :   null,
                                     content                 :   null,
                                     items                   :   null,
-                                    second_param            :   ''
+                                    second_param            :   '',
+                                    show_breadcrumbs        :   true
                                 };
                     },
     components  :   {
@@ -43,6 +46,7 @@ export default
     mounted     :   function()
                     {
                         this.second_param                   =   this.$route.params.second;
+                        // this.show_breadcrumbs               =   this.$route.params.third != undefined;
                         this.fetch();
                     },
     updated     :   function()
@@ -86,6 +90,7 @@ export default
                         {
                             this.reset();
                             this.second_param               =   to.params.second;
+                            // this.show_breadcrumbs           =   to.params.third != undefined;
                             this.fetch();
                         }
                     }

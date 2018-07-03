@@ -41,20 +41,17 @@ global.getdata              =   function(path, onDone, onFail)
                                     .then(function (response)
                                     {
                                         let data                                    =   response.data;
-                                        if (onDone) {
-                                            onDone(data);
-                                        }
-
                                         global.header.navigation                    =   data.navigation;
-                                        // global.main.title                           =   data.title;
-                                        // global.main.hero                            =   data.hero;
-                                        // global.main.hero_text                       =   data.hero_text;
                                         global.footer.sitename                      =   data.sitename;
                                         global.footer.contact                       =   data.contact.branches;
                                         global.footer.news                          =   data.news;
                                         global.footer.slogan                        =   data.footer_slogan;
                                         global.consultation_form.csrf               =   data.csrf;
                                         global.consultation_form.visa_categories    =   data.visa_categories;
+
+                                        if (onDone) {
+                                            onDone(data);
+                                        }
                                     })
                                     .catch(function (error)
                                     {
