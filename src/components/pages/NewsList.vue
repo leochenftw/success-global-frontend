@@ -7,7 +7,7 @@
                 <p v-if="breadcrumbs" class="subtitle page-content__heading__breadcrumbs is-6 has-text-centered">
                 <template v-for="(breadcrumb, i) in breadcrumbs">
                     <template v-if="i < breadcrumbs.length - 1">
-                        <a class="page-content__heading__breadcrumb" :href="breadcrumb.url">{{breadcrumb.title}}</a>
+                        <a class="page-content__heading__breadcrumb" :href="[base_prefix + breadcrumb.url]">{{breadcrumb.title}}</a>
                         <span class="separator"> › </span>
                     </template>
                     <span class="page-content__heading__breadcrumb" v-else>{{breadcrumb.title}}</span>
@@ -52,7 +52,8 @@ export default
     data            :   function()
                         {
                             return  {
-                                        base_url    :   global.base_url
+                                        base_url                :   global.base_url,
+                                        base_prefix             :   global.base_prefix
                                     };
                         },
     mounted         :   function()
