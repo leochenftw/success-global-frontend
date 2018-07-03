@@ -40,3 +40,18 @@
         }
     }
 }
+
+.pop-form {
+    z-index: 2;
+    position: absolute;
+    width: calc(50% + 32px);
+    max-width: 475px;
+    padding: 0 2rem 5rem;
+    left: 0;
+    bottom: 0;
+    color: $white;
+    .title {
+        color: $white;
+        font-weight: bold;
+    }
+}

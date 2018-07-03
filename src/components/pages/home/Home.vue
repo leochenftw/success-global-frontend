@@ -13,7 +13,7 @@
                     :bg_only="true"
                 />
             </div>
-
+            <PopForm />
             <!-- <LandingForm
                 :title="slogan"
             /> -->
@@ -78,6 +78,7 @@ import SectionTeam from './blocks/SectionTeam';
 import SectionContact from './blocks/SectionContact';
 import LandingForm from '@/components/forms/LandingForm';
 import SectionPoD from './blocks/SectionPoD';
+import PopForm from './blocks/PopForm';
 import 'owl.carousel';
 export default
 {
@@ -105,6 +106,7 @@ export default
                         SectionTeam,
                         SectionContact,
                         LandingForm,
+                        PopForm,
                         SectionPoD
                     },
     created     :   function()
