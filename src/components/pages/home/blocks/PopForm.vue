@@ -6,10 +6,10 @@
         </div>
         <div class="field is-grouped">
             <p class="control">
-                <a @click="scroll_to_contact" class="button is-gold is-medium">Contact Us</a>
+                <a @click="scroll_to_contact" class="button is-gold is-medium">Get in touch</a>
             </p>
             <p class="control">
-                <a @click="open_booking_form" class="button is-gold is-medium">Book Consultation</a>
+                <a @click="open_booking_form" class="button is-gold is-medium">Book consultation</a>
             </p>
         </div>
     </div>
@@ -23,7 +23,7 @@ export default
                                 scroll_to_contact   :   function(e)
                                                         {
                                                             e.preventDefault();
-                                                            $('body').scrollTo($('#section-contact .section-contact__contact-form'), 500, {axis: 'y', offset: -109});
+                                                            $('body').scrollTo($('#section-contact'), 500, {axis: 'y', offset: -69});
                                                         },
                                 open_booking_form   :   function(e)
                                                         {

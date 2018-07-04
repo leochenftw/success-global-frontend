@@ -46,12 +46,38 @@
     position: absolute;
     width: calc(50% + 32px);
     max-width: 475px;
-    padding: 0 2rem 5rem;
+    padding: 0 24px 3rem;
+
+    @include until(600px) {
+        width: 100%;
+        max-width: none;
+        padding: 0 24px 24px;
+    }
+
     left: 0;
     bottom: 0;
     color: $white;
     .title {
         color: $white;
         font-weight: bold;
+        @include until(768px) {
+            font-size: 32px;
+        }
+
+        @include until(480px) {
+            font-size: 28px;
+        }
+    }
+
+    .field {
+        .button {
+            @include until(480px) {
+                font-size: 16px;
+            }
+
+            @include until(360px) {
+                font-size: 14px;
+            }
+        }
     }
 }

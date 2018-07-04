@@ -3,7 +3,9 @@
         @include mobile {
             position: absolute;
             height: 100%;
+            padding-top: 70px;
         }
+
         &.owl-loaded {
             .owl-item {
                 opacity: 1;
@@ -54,7 +56,7 @@
         opacity: 0;
         height: 100vh;
         background-size: cover;
-        background-position: left center;
+        background-position: center;
         background-repeat: no-repeat;
         display: flex;
         align-items: center;
@@ -100,7 +102,7 @@
 #carousel-wrapper {
     position: relative;
     @include mobile {
-        margin-top: 70px;
+        height: 100vh;
     }
 
     @import '../forms/landing-form';
