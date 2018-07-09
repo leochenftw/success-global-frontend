@@ -1,11 +1,12 @@
 <template>
     <main id="app" :class="{'is-loading': is_loading}">
         <router-view />
+        <FloatingContact />
     </main>
 </template>
 
 <script>
-// import Hero from './components/Hero';
+import FloatingContact from '@/components/elements/FloatingContact';
 export default
 {
     name        :   'app',
@@ -16,7 +17,7 @@ export default
                                 };
                     },
     components  :   {
-                        // Hero
+                        FloatingContact
                     },
     watch       :   {
                         $route (to, from)

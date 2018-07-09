@@ -16,6 +16,8 @@ require('jquery-visible');
 require('jquery.scrollto');
 require('./plugins/jplugins');
 
+Vue.prototype.$bus          =   new Vue({});
+
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'
 };
@@ -91,6 +93,7 @@ global.getdata              =   function(path, onDone, onFail)
                                             {
                                                 global.overlay.show         =   false;
                                                 NProgress.done();
+                                                Vue.prototype.$bus.$emit('Scrolling', $(window).scrollTop());
                                                 global.main.is_loading      =   false;
                                                 global.footer.is_loading    =   false;
                                             }, 300);
@@ -176,4 +179,5 @@ $(window).scroll(function(e)
     {
         t.is_visible();
     });
+    Vue.prototype.$bus.$emit('Scrolling', $(window).scrollTop());
 }).scroll();

@@ -4,22 +4,11 @@
             <img class="jarallax-img" :src="hero" alt="">
             <div class="page-content__heading is-absolute-centered">
                 <h1 class="title is-1 is-paddingless has-text-centered">{{title}}</h1>
-                <p v-if="breadcrumbs && show_breadcrumbs" class="subtitle page-content__heading__breadcrumbs is-6 has-text-centered">
-                <template v-for="(breadcrumb, i) in breadcrumbs">
-                    <template v-if="breadcrumbs.length > 1">
-                        <template v-if="i < breadcrumbs.length - 1">
-                            <a class="page-content__heading__breadcrumb" :href="[base_prefix + breadcrumb.url]">{{breadcrumb.title}}</a>
-                            <span class="separator"> › </span>
-                        </template>
-                        <span class="page-content__heading__breadcrumb" v-else>{{breadcrumb.title}}</span>
-                    </template>
-                    <template v-else>
-                        <a class="page-content__heading__breadcrumb" :href="[base_prefix + breadcrumb.url]">{{breadcrumb.title}}</a>
-                        <span class="separator"> › </span>
-                        <span class="page-content__heading__breadcrumb">{{title}}</span>
-                    </template>
-                </template>
-                </p>
+                <Breadcrumbs
+                    v-if="breadcrumbs && show_breadcrumbs"
+                    :breadcrumbs="breadcrumbs"
+                    :title="title"
+                />
             </div>
         </div>
         <div class="container">
@@ -37,6 +26,7 @@ import {
     jarallaxElement,
     jarallaxVideo
 } from 'jarallax';
+import Breadcrumbs from '@/components/elements/Breadcrumbs';
 export default
 {
     name        :   'GeneralLayout',
@@ -60,7 +50,9 @@ export default
                                     // content                 :   null
                                 };
                     },
-    components  :   { },
+    components  :   {
+                        Breadcrumbs
+                    },
     mounted     :   function()
                     {
 

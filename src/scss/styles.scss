@@ -31,7 +31,8 @@
         'blocks/footer/footer',
         'blocks/overlays/loading-overlay';
 
-@import 'elements/nprogress';
+@import 'elements/nprogress',
+        'elements/bottom-floating-contact';
 
 html {
     &.is {

@@ -6,6 +6,9 @@
     &-section {
         .container {
             padding: 48px 24px;
+            @include until(480px) {
+                padding: 24px 12px;
+            }
         }
     }
 

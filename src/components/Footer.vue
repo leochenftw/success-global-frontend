@@ -111,6 +111,12 @@ export default
                                 };
                     },
     components  :   {  },
+    watch       :   {
+                        contact             :   function(newVal, oldVal)
+                                                {
+                                                    this.$bus.$emit('DataFed', newVal);
+                                                }
+                    },
     methods     :   {
                         show_consultation   :   function(e)
                                                 {
