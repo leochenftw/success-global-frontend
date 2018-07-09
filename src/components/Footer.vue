@@ -50,17 +50,17 @@
                         </li>
                     </ul>
                 </div>
-                <div class="column footer_misc__news-list">
+                <div class="column footer__misc__news-list">
                     <h2 class="title is-6 is-uppercase">
                         Latest updates
                     </h2>
                     <ul v-if="news">
                         <li v-for="item in news">
-                            <a class="columns footer_misc__news is-mobile" :href="[base_prefix + item.url]">
-                                <div class="footer_misc__news__thumb column is-narrow">
+                            <a class="columns footer__misc__news is-mobile" :href="[base_prefix + item.url]">
+                                <div class="footer__misc__news__thumb column is-narrow">
                                     <img :src="[base_url + item.thumb]" width="50" height="50" />
                                 </div>
-                                <div class="footer_misc__news__content column">
+                                <div class="footer__misc__news__content column">
                                     <h3 class="title is-6">{{item.title}}</h3>
                                     <p class="subtitle is-6">{{nzst(item.date)}}</p>
                                 </div>
