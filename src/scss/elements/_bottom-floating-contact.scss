@@ -1,18 +1,22 @@
 #bottom-overlay {
-    position: fixed;
-    z-index: 10;
-    background-color: $eeri-black;
-    bottom: 0;
-    width: 100%;
-    transition: all ease-in-out 0.3s;
-    opacity: 1;
-    visibility: visible;
-    &.hide {
-        transform: translateY(100%);
-        opacity: 0;
-        visibility: hidden;
-    }
-    a {
-        color: $gold;
+    display: none;
+    @include mobile {
+        display: flex;
+        position: fixed;
+        z-index: 10;
+        background-color: $eeri-black;
+        bottom: 0;
+        width: 100%;
+        transition: all ease-in-out 0.3s;
+        opacity: 1;
+        visibility: visible;
+        &.hide {
+            transform: translateY(100%);
+            opacity: 0;
+            visibility: hidden;
+        }
+        a {
+            color: $gold;
+        }
     }
 }
